@@ -40,9 +40,9 @@ validationDf.to_csv('validation.csv',index=None)
 datasetDataFrame.to_csv('all.csv',index=None)
 
 ids, classes = zip(*{
-        0: "Alloro",
-        1: "Mandarino",
-        2: "Ulivo"
+        1: "Alloro",
+        2: "Mandarino",
+        3: "Ulivo"
     }.items())
 ids = pd.DataFrame({'id':ids, 'class':classes}).set_index('id')
 ids.to_csv('dataset/classes.csv')
