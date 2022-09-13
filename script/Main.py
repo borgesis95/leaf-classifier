@@ -42,5 +42,5 @@ def training(model_value,isDAactive, isPretrainedActive,epochsNumber):
     return accuracy,model
 
 if  __name__ =='__main__':
-     training('SqueezeNet',False,True,5)         
+     training('SqueezeNet',False,True,50)         
 
