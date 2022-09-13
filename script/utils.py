@@ -27,17 +27,13 @@ def load_dataset(isDataAugmentationActive = False):
         ])
 
     else:
-        print("Non entro")
         train_transform = transforms.Compose([
-                         transforms.Resize(256),
-                         transforms.RandomCrop(224),
-                         transforms.RandomHorizontalFlip(),
-                         transforms.ToTensor(),
-                         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ]
+            transforms.ToTensor(),
+            transforms.Normalize([0.511, 0.511, 0.511], [0.0947, 0.0947, 0.0948])
+        ])
                         
                         
-    )
+    
 
     test_transform = transforms.Compose([
                      transforms.Resize(256),
@@ -47,17 +43,17 @@ def load_dataset(isDataAugmentationActive = False):
                      transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
 
-
-    print("--- CSV LOADING ---")
     # -- Caricamento dai CSV ---
     train_dataset = CSVImageDataset('./training.csv',transform=train_transform)
-    validation_dataset = CSVImageDataset('./validation.csv',transform=test_transform)
-    test_dataset = CSVImageDataset('./validation.csv',transform=test_transform)
+    validation_dataset = CSVImageDataset('./validation.csv',transform=train_transform)
+    test_dataset = CSVImageDataset('./validation.csv',transform=train_transform)
 
     # -- Utilizzo Dataloader ---
 
-    train_loader = DataLoader(train_dataset, batch_size=6, num_workers=6, shuffle=True)
-    valid_loader = DataLoader(validation_dataset, batch_size=6, num_workers=6)
-    test_loader = DataLoader(test_dataset, batch_size=6, num_workers=6)
+    batch_size = 32
+    num_workers = 2
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True)
+    valid_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
 
     return train_loader,valid_loader,test_loader
