@@ -12,7 +12,7 @@ class SqueezeNet():
 
 class AlexNet():
     def get_model(self,num_class = 4, pretrained = True):
-        model = AlNet(pretrained=pretrained)
+        model = AlNet()
         model.classifier[6] = nn.Linear(4096, num_class)
         print("Run: AlexNet: ",model)
 

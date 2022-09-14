@@ -33,7 +33,7 @@ def training(model_value,isDAactive, isPretrainedActive,epochsNumber):
     # Ci saranno tre classi presenti
     model = get_Model(model_value)
 
-    model = trainval_classifier(model, isPretrainedActive, model_value, train_loader, validation_loader, lr=0.1, exp_name=model_value, momentum=0.99, epochs=epochsNumber)
+    model = trainval_classifier(model, isPretrainedActive, model_value, train_loader, validation_loader, lr=0.001, exp_name=model_value, momentum=0.99, epochs=epochsNumber)
 
     #test (viene passato il modello appena allenato)
     predictions,labels = test_classifier(model,test_loader)
@@ -42,5 +42,6 @@ def training(model_value,isDAactive, isPretrainedActive,epochsNumber):
     return accuracy,model
 
 if  __name__ =='__main__':
-     training('SqueezeNet',False,True,50)         
+
+     training('resnet',False,True,20)         
 

@@ -32,9 +32,10 @@ class AvgMeter():
 
 def trainval_classifier(model,pretrained,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs'):
     if pretrained:
-        print("Parametri già presenti")
-        if(os.path.isfile('checkpoint\\' + modelName + 'checkpoint.pth')):
-            model.load_state_dict(torch.load('checkpoint\\' + modelName + '_checkpoint.pth')['state_dict'])   
+        if(os.path.isfile('./checkpoint/' + modelName + '_checkpoint.pth')):
+            print("caricamento checkpoint...")
+            model.load_state_dict(torch.load('./checkpoint/' + modelName + '_checkpoint.pth')['state_dict'])   
+       
 
     # -- Loss
     criterion = nn.CrossEntropyLoss()
@@ -51,9 +52,11 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
     loader = {
         'train': train_loader,
         'valid' : validation_loader
-    }
+}
 
     def save_checkpoint(model, epoch):
+        print("SALVATAGGIO CHECKPOINT");
+
         if not os.path.exists('checkpoint'):
             os.makedirs('checkpoint')
         torch.save({
@@ -104,7 +107,7 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
                 writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
 
-        save_checkpoint(model, e )
+        save_checkpoint(model, e)
 
     return model
 

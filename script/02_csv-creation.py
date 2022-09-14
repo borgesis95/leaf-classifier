@@ -18,7 +18,7 @@ if __name__ == "__main__":
     for i in range(len(labelsFile)):
 
         # Vengono inserite nell'array i path delle immagini salvate sul file labels.txt
-        images.append('frame/' + labelsFile[i][0])
+        images.append('frames/' + labelsFile[i][0])
         #Vengono inserite le classi associate
         labels.append(labelsFile[i][1])
     
