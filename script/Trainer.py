@@ -9,6 +9,7 @@ from sklearn.metrics import accuracy_score
 from torch.utils.tensorboard import SummaryWriter
 from os.path import join
 from numba import cuda 
+import time
 
 class AvgMeter():
     """ Calculates the loss and accuracy on individual batches"""
@@ -31,6 +32,8 @@ class AvgMeter():
 
 
 def trainval_classifier(model,pretrained,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs'):
+    time_start = time.time()
+
     if pretrained:
         if(os.path.isfile('./checkpoint/' + modelName + '_checkpoint.pth')):
             print("caricamento checkpoint...")
@@ -108,6 +111,8 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
 
         save_checkpoint(model, e)
+    time_elapsed = time.time() - time_start
+    print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 
     return model
 

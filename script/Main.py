@@ -43,5 +43,5 @@ def training(model_value,isDAactive, isPretrainedActive,epochsNumber):
 
 if  __name__ =='__main__':
 
-     training('resnet',False,True,20)         
+     training('resnet',False,True,40)         
 
