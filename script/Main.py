@@ -42,6 +42,5 @@ def training(model_value,isDAactive, isPretrainedActive,epochsNumber):
     return accuracy,model
 
 if  __name__ =='__main__':
-
-     training('resnet',False,True,40)         
+     training('vgg16',False,True,40)         
 
