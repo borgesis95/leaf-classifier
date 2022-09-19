@@ -2,7 +2,6 @@ import torch
 import numpy as np
 
 
-
 def test_classifier(model,loader):
     device = "cuda"  if torch.cuda.is_available() else "cpu"
     model.to(device)

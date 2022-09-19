@@ -3,12 +3,9 @@ import torch
 import os  
 from torch import nn
 from torch.optim import SGD
-from torchnet.meter import AverageValueMeter
-# from torchnet.logger import VisdomPlotLogger, VisdomSaver
 from sklearn.metrics import accuracy_score
 from torch.utils.tensorboard import SummaryWriter
 from os.path import join
-from numba import cuda 
 import time
 
 class AvgMeter():
@@ -35,9 +32,9 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
     time_start = time.time()
 
     if pretrained:
-        if(os.path.isfile('./checkpoint/' + modelName + '_checkpoint.pth')):
+        if(os.path.isfile('./checkpoint/' + modelName +'_lr=' +str(lr)+ '_checkpoint.pth')):
             print("caricamento checkpoint...")
-            model.load_state_dict(torch.load('./checkpoint/' + modelName + '_checkpoint.pth')['state_dict'])   
+            model.load_state_dict(torch.load('./checkpoint/' + modelName + '_lr=' + str(lr)+'_checkpoint.pth')['state_dict'])   
        
 
     # -- Loss
@@ -46,7 +43,7 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
 
     loss_meter = AvgMeter()
     acc_meter = AvgMeter()
-    writer = SummaryWriter(join(logdir,exp_name))
+    writer = SummaryWriter(join(logdir,exp_name+"_lr="+str(lr)))
 
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -57,15 +54,15 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
         'valid' : validation_loader
 }
 
-    def save_checkpoint(model, epoch):
-        print("SALVATAGGIO CHECKPOINT");
+    def save(model,epoch,lr):
+        print("saving checkpoint...");
 
         if not os.path.exists('checkpoint'):
             os.makedirs('checkpoint')
         torch.save({
             'state_dict' : model.state_dict(),
             'epoch' : epoch
-        }, "{}{}_{}.pth".format('checkpoint\\',exp_name, 'checkpoint'))
+        }, "{}{}_{}_{}.pth".format('checkpoint\\',exp_name,"lr="+str(lr),'checkpoint'))
 
     
     global_step = 0
@@ -110,7 +107,7 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
                 writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
 
-        save_checkpoint(model, e)
+        save(model, e,lr)
     time_elapsed = time.time() - time_start
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 

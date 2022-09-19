@@ -1,6 +1,18 @@
 from torchvision.models import squeezenet1_1,AlexNet as AlNet,vgg16,resnet18
 from torch import nn
+from torchvision.models.googlenet import googlenet
 
+
+class GoogleNet():
+    def get_model(self,num_class = 4, pretrained = True):
+        model = googlenet(pretrained=pretrained)
+        num_class = 101
+        model.fc = nn.Linear(1024, num_class)
+        print("Run: GoogleNet: ",model)
+
+        return model
+
+        
 class SqueezeNet():
     def get_model(self,num_class = 4, pretrained = True):
         model = squeezenet1_1(pretrained=pretrained)
@@ -11,7 +23,7 @@ class SqueezeNet():
         return model
 
 class AlexNet():
-    def get_model(self,num_class = 4, pretrained = True):
+    def get_model(self,num_class = 3, pretrained = True):
         model = AlNet()
         model.classifier[6] = nn.Linear(4096, num_class)
         print("Run: AlexNet: ",model)

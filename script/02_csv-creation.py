@@ -1,8 +1,7 @@
 import random 
 import numpy as np
 import pandas as pd
-
-from Utils import split_train_val_test
+from utils import split_train_val_test
 
 if __name__ == "__main__":
     random.seed(1234)
@@ -40,9 +39,9 @@ validationDf.to_csv('validation.csv',index=None)
 datasetDataFrame.to_csv('all.csv',index=None)
 
 ids, classes = zip(*{
-        1: "Alloro",
-        2: "Mandarino",
-        3: "Ulivo"
+        0: "Alloro",
+        1: "Mandarino",
+        2: "Ulivo"
     }.items())
 ids = pd.DataFrame({'id':ids, 'class':classes}).set_index('id')
 ids.to_csv('dataset/classes.csv')

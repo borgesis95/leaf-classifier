@@ -32,9 +32,6 @@ def load_dataset(isDataAugmentationActive = False):
             transforms.Normalize([0.511, 0.511, 0.511], [0.0947, 0.0947, 0.0948])
         ])
                         
-                        
-    
-
     test_transform = transforms.Compose([
                      transforms.Resize(256),
                      transforms.CenterCrop(224),

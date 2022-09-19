@@ -27,9 +27,9 @@ if __name__ =="__main__":
 
     print("Start Frame extraction...")
     class_dictionary = {
-        "alloro" : 1,
-        "mandarino": 2,
-        "ulivo": 3
+        "alloro" : 0,
+        "mandarino": 1,
+        "ulivo": 2
     }
     source = ['alloro','mandarino','ulivo']
     videoPath = 'dataset/'
