@@ -1,10 +1,11 @@
 # default mean and std needed by pretrained models from pytorch
-from Testing import test_classifier
-from utils import load_dataset
-from Trainer import trainval_classifier
-from sklearn.metrics import accuracy_score
-from models import SqueezeNet,AlexNet,VGG16,ResNet,GoogleNet
+from script.Testing import test_classifier
+from script.Trainer import trainval_classifier
+from script.models import SqueezeNet,AlexNet,VGG16,ResNet,GoogleNet
 
+from sklearn.metrics import accuracy_score
+
+from  utils.utils import *
 def get_Model(model_value):
 
     model_value = model_value.lower()

@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from Inference import inference
+from script.Inference import inference
 
 
 class Ui_MainWindow(object):

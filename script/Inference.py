@@ -1,4 +1,4 @@
-from models import GoogleNet,AlexNet
+from script.models import GoogleNet,AlexNet
 import torchvision.transforms as transforms
 from PIL import Image
 import torch
