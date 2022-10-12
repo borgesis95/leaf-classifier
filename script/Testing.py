@@ -3,7 +3,7 @@ import numpy as np
 
 
 def test_classifier(model,loader):
-    device = "cuda"  if torch.cuda.is_available() else "cpu"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
 
     predictions = []
@@ -14,6 +14,7 @@ def test_classifier(model,loader):
         #etichette
         y = batch[1].to(device)
         output = model(x)
+
 
         #prediction
         preds = output.to('cpu').max(1)[1].numpy()

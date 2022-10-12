@@ -4,9 +4,8 @@ from torchvision.models.googlenet import googlenet
 
 
 class GoogleNet():
-    def get_model(self,num_class = 4, pretrained = True):
+    def get_model(self,num_class = 3, pretrained = True):
         model = googlenet(pretrained=pretrained)
-        num_class = 101
         model.fc = nn.Linear(1024, num_class)
         print("Run: GoogleNet: ",model)
 
@@ -14,8 +13,8 @@ class GoogleNet():
 
         
 class SqueezeNet():
-    def get_model(self,num_class = 4, pretrained = True):
-        model = squeezenet1_1(pretrained=pretrained)
+    def get_model(self,num_class = 3, pretrained = True):
+        model = squeezenet1_1()
         model.classifier[1] = nn.Conv2d(512, num_class, kernel_size=(1, 1), stride=(1, 1))
         model.num_classes = num_class
         print("Run: Squeezenet: ",model)
@@ -31,7 +30,7 @@ class AlexNet():
         return model
 
 class VGG16():
-    def get_model(self,num_class = 4, pretrained = True):
+    def get_model(self,num_class = 3, pretrained = True):
         model = vgg16(pretrained=pretrained)
         model.classifier[6] = nn.Linear(4096, num_class)
         print("Run: VGG16: ",model)
@@ -40,7 +39,7 @@ class VGG16():
 
 
 class ResNet():
-    def get_model(self,num_class = 4, pretrained = True):
+    def get_model(self,num_class = 3, pretrained = True):
         model = resnet18(pretrained=pretrained)
         model.fc = nn.Linear(512, num_class)
         model.num_classes = num_class

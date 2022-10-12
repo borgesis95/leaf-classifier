@@ -4,8 +4,8 @@ from script.Trainer import trainval_classifier
 from script.models import SqueezeNet,AlexNet,VGG16,ResNet,GoogleNet
 
 from sklearn.metrics import accuracy_score
+from script.utils.utils import load_dataset
 
-from  utils.utils import *
 def get_Model(model_value):
 
     model_value = model_value.lower()
@@ -14,7 +14,7 @@ def get_Model(model_value):
         model = SqueezeNet().get_model()
     elif model_value =='alexnet':
         model = AlexNet().get_model()
-    elif model_value == 'vgg16': #no
+    elif model_value == 'vgg16': 
         model = VGG16().get_model()
     elif model_value == 'resnet':
         model = ResNet().get_model() 
@@ -42,5 +42,5 @@ def training(model_value,loadCheckpoint,epochsNumber,lr = 0.001):
 
 if  __name__ =='__main__':
    
-    training('alexnet',True,60)         
+    training('googlenet',True,50)         
 

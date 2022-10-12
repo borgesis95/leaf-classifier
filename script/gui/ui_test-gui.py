@@ -60,7 +60,7 @@ class Ui_MainWindow(object):
         self.ImageFrame.setText(_translate("MainWindow", "TextLabel"))
 
     def test(self):
-        value = inference("Alexnet",self.fileName)
+        value = inference("googlenet",self.fileName)
         self.resultValue.setText(value)
         
 
