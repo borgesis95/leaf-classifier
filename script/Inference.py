@@ -1,12 +1,12 @@
 from re import I
-from script.models import GoogleNet,AlexNet, ResNet, SqueezeNet
+from script.models import GoogleNet, ResNet, SqueezeNet
 import torchvision.transforms as transforms
 from PIL import Image
 import torch
 import os
 from torch import nn
 
-from torchvision.models import squeezenet1_1,AlexNet as AlNet,vgg16,resnet18
+from torchvision.models import squeezenet1_1,AlexNet,vgg16,resnet18
 from torchvision.models.googlenet import googlenet
 
 def get_transform(im):
@@ -22,6 +22,12 @@ def get_transform(im):
 def inference(modelname,filename):
 
     model = ""
+
+    if modelname =="alexnet":
+        print("AlexNet")
+        model = AlexNet()
+        model.classifier[6] = nn.Linear(4096, 3)
+
     if modelname =="resnet":
         model = resnet18()
         model.fc = nn.Linear(512, 3)
@@ -51,7 +57,7 @@ def inference(modelname,filename):
     model.eval()
     out_predict = model(batch_t)
     _,index = torch.max(out_predict,1)
-    labels = ['Alloro','Mandarino','Ulivo','Non saprei']
+    labels = ['Alloro','Edera','Nespola']
 
     print("Index",index)
     print("LABEL",labels[index[0]])

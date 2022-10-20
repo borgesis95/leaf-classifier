@@ -8,7 +8,8 @@ def get_frame(path,imagePath,framesNumber,textFile,labelClass):
     video = cv2.VideoCapture(path)
     totalFrames = video.get(cv2.CAP_PROP_FRAME_COUNT)
 
-    frames = totalFrames // framesNumber
+    frames = totalFrames // framesNumber    
+    print("frames",frames)
 
     for i in range(framesNumber):
         video.set(1,i*frames)
@@ -27,14 +28,14 @@ if __name__ =="__main__":
 
     print("Start Frame extraction...")
     class_dictionary = {
-        "alloro" : 0,
-        "mandarino": 1,
-        "ulivo": 2
+        "alloro-2" : 0,
+        "edera": 1,
+        "nespole": 2
     }
-    source = ['alloro','mandarino','ulivo']
+    source = ['alloro-2','edera','nespole']
     videoPath = 'dataset/'
 
-    frames_per_video = 250
+    frames_per_video = 300
     print("Numero di frame per video - ",frames_per_video)
     labels = open('./labels.txt','a')
 

@@ -42,5 +42,5 @@ def training(model_value,loadCheckpoint,epochsNumber,lr = 0.001):
 
 if  __name__ =='__main__':
    
-    training('googlenet',True,50)         
+    training('googlenet',True,25)         
 
