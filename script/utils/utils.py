@@ -54,3 +54,10 @@ def load_dataset(isDataAugmentationActive = False):
     test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
 
     return train_loader,valid_loader,test_loader
+
+
+
+def set_parameter_requires_grad(model, feature_extracting):
+    if feature_extracting:
+        for param in model.parameters():
+            param.requires_grad = False

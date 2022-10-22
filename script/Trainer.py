@@ -28,13 +28,18 @@ class AvgMeter():
             return None
 
 
-def trainval_classifier(model,pretrained,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs'):
-    time_start = time.time()
+def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs',feature_extraction = False):
+    
+    print("Learning rate --> ",lr)
+    print("Feature extraction --> ",feature_extraction)
+    since = time.time()
 
-    if pretrained:
-        if(os.path.isfile('./checkpoint/' + modelName +'_lr=' +str(lr)+ '_checkpoint.pth')):
-            print("caricamento checkpoint...")
-            model.load_state_dict(torch.load('./checkpoint/' + modelName + '_lr=' + str(lr)+'_checkpoint.pth')['state_dict'])   
+    # Se il modello è stato salvato (e se il flag loadcheckpoint è presente), allora verrà caricato il modello
+    # allenato precedentemente
+    if loadcheckpoint:
+        if(os.path.isfile('./checkpoint/' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_checkpoint.pth')):
+            print("loading checkpoint...")
+            model.load_state_dict(torch.load('./checkpoint/' + modelName + '_lr=' + str(lr)+'_fe='+str(feature_extraction)+'_checkpoint.pth')['state_dict'])   
        
 
     # -- Loss
@@ -62,17 +67,20 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
         torch.save({
             'state_dict' : model.state_dict(),
             'epoch' : epoch
-        }, "{}{}_{}_{}.pth".format('checkpoint\\',exp_name,"lr="+str(lr),'checkpoint'))
+        }, "{}{}_{}_{}.pth".format('checkpoint\\',exp_name,"lr="+str(lr) +'_fe='+str(feature_extraction),'checkpoint'))
 
     
     global_step = 0
     for e in range(epochs):
-        print(modelName + ':Epoch %d/%d' % (e, epochs - 1))
+        print('Epoch {}/{}'.format(e, epochs - 1))
+        print('-' * 10)
 
          # Saranno effettuate due iterazioni una per il training ed una per il validation
         for mode in ['train' , 'valid']:
-            loss_meter.reset(); acc_meter.reset();
+            loss_meter.reset(); 
+            acc_meter.reset();
             model.train() if mode == 'train' else model.eval()
+          
 
             # Abilitazione dei gradienti
 
@@ -80,6 +88,7 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
                 for i, batch in enumerate(loader[mode]):
                     x = batch[0].to(device)
                     y = batch[1].to(device)
+
 
                     n = x.shape[0]
                     global_step+=n
@@ -105,10 +114,11 @@ def trainval_classifier(model,pretrained,modelName,train_loader,validation_loade
 
                 writer.add_scalar('loss/' + mode, loss_meter.value(), global_step=global_step)
                 writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
+       
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
 
         save(model, e,lr)
-    time_elapsed = time.time() - time_start
+    time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 
     return model
