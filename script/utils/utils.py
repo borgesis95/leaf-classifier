@@ -16,34 +16,24 @@ def split_train_val_test(dataset: DataFrame,percentual: array):
     return train,val,test
 
 
-def load_dataset(isDataAugmentationActive = False):
+def load_dataset():
 
-    if isDataAugmentationActive:
-        train_transform = transforms.Compose([
-        transforms.RandomAffine((-20,20),shear=[-20,20]), 
-        transforms.RandomRotation((-40,40)),
-        transforms.ToTensor(),
-        transforms.Normalize([0.511, 0.511, 0.511], [0.0947, 0.0947, 0.0948])
-        ])
+    train_transforms = transforms.Compose([
+                        transforms.ToTensor(),
+                        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]) 
 
-    else:
-        train_transform = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize([0.511, 0.511, 0.511], [0.0947, 0.0947, 0.0948])
-        ])
+    
                         
-    test_transform = transforms.Compose([
-                     transforms.Resize(256),
-                     transforms.CenterCrop(224),
-                     transforms.RandomHorizontalFlip(),
-                     transforms.ToTensor(),
-                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    validation_transforms = transforms.Compose([
+                            transforms.ToTensor(),
+                            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
 
     # -- Caricamento dai CSV ---
-    train_dataset = CSVImageDataset('./training.csv',transform=train_transform)
-    validation_dataset = CSVImageDataset('./validation.csv',transform=train_transform)
-    test_dataset = CSVImageDataset('./validation.csv',transform=train_transform)
+    train_dataset = CSVImageDataset('./training.csv',transform=train_transforms)
+    validation_dataset = CSVImageDataset('./validation.csv',transform=validation_transforms)
+    test_dataset = CSVImageDataset('./validation.csv',transform=validation_transforms)
 
     # -- Utilizzo Dataloader ---
 
@@ -61,3 +51,4 @@ def set_parameter_requires_grad(model, feature_extracting):
     if feature_extracting:
         for param in model.parameters():
             param.requires_grad = False
+

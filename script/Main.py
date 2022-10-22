@@ -5,6 +5,7 @@ from script.models import SqueezeNet,AlexNet,ResNet,GoogleNet
 
 from sklearn.metrics import accuracy_score
 from script.utils.utils import load_dataset
+from matplotlib import pyplot as plt
 
 def get_Model(model_value,feature_extraction):
 
@@ -36,7 +37,14 @@ def training(model_name,load_dict,epochs_number,lr = 0.001,feature_extr = False)
     print("Accuracy of : ",model_name," : ",accuracy)
     return accuracy,model
 
+
+def norm(im):
+    im = im- im.min()
+    return im/im.max()
+
+
+
+
 if  __name__ =='__main__':
    
     training('alexnet',True,25,lr=0.001,feature_extr=False)         
-

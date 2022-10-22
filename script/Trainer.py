@@ -124,4 +124,7 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
     return model
 
 
-    
+
+def optmizer(model):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
