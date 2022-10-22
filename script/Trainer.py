@@ -44,7 +44,8 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
 
     # -- Loss
     criterion = nn.CrossEntropyLoss()
-    optimizer = SGD(model.parameters(),lr,momentum=momentum)
+    optimizer = custom_optimizer(model,lr,momentum=momentum,feature_extraction=feature_extraction)
+    # optimizer = SGD(model.parameters(),lr,momentum=momentum)
 
     loss_meter = AvgMeter()
     acc_meter = AvgMeter()
@@ -96,10 +97,9 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
                     loss = criterion(output,y)
 
                     if mode == 'train':
-                        # Calcolo dei gradienti
                         loss.backward()
                         torch.cuda.empty_cache()
-                        # Ottimiziamo i gradienti
+                        
                         optimizer.step()
                         optimizer.zero_grad()
                     acc = accuracy_score(y.to('cpu'),output.to('cpu').max(1)[1])
@@ -125,6 +125,23 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
 
 
 
-def optmizer(model):
+# Need to build an optmizer that is able to just update only 
+#desidered parameters 
+def custom_optimizer(model,lr,momentum,feature_extraction):
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = model.to(device)
+    params_to_update = model.parameters()
+
+    if feature_extraction:
+        parmams_to_update = []
+        for name,param in model.named_parameters():
+            if param.requires_grad == True:
+                parmams_to_update.append(param)
+                print("Required \t",name)
+            else :
+                print(" Not required: \t",name)
+
+    c_optimizer = SGD(params_to_update,lr,momentum)
+    return c_optimizer
+    
 

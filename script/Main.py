@@ -47,4 +47,4 @@ def norm(im):
 
 if  __name__ =='__main__':
    
-    training('alexnet',True,25,lr=0.001,feature_extr=False)         
+    training('alexnet',True,25,lr=0.001,feature_extr=True)         
