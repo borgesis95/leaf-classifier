@@ -19,6 +19,36 @@ def get_transform(im):
     return train_transform(im)
 
 
+def get_model(modelname):
+    model = ""
+
+    if modelname =="alexnet":
+        print("AlexNet")
+        model = AlexNet()
+        model.classifier[6] = nn.Linear(4096, 3)
+
+    if modelname =="resnet":
+        model = resnet18()
+        model.fc = nn.Linear(512, 3)
+        model.num_classes = 3
+
+    if modelname == "googlenet":
+        print("GOOGLENET")
+        model = googlenet(pretrained=True)
+        num_class = 3
+        model.fc = nn.Linear(1024, num_class)
+
+    #Carichiamo il dizionario 
+    
+   
+    lr = 0.001
+    if(os.path.isfile('./checkpoint/' + modelname +'_lr=' +str(lr)+ '_checkpoint.pth')):
+        print("carico i parametri..")
+        model.load_state_dict(torch.load('./checkpoint/' + modelname + '_lr=' + str(lr)+'_checkpoint.pth')['state_dict'])   
+    
+    return model
+
+
 def inference(modelname,filename):
 
     model = ""
@@ -63,5 +93,16 @@ def inference(modelname,filename):
     print("LABEL",labels[index[0]])
     return labels[index[0]]
 
+
+
+def predict(input):
+
+    labels = ['Alloro','Edera','Nespola']
+    input = transforms.ToTensor()(input).unsqueeze(0)
+    model = get_model("alexnet")
+    with torch.no_grad():
+         prediction = model(input)[0]
+         confidences = {labels[i]: float(prediction[i]) for i in range(3)}    
+    return confidences
 
 
