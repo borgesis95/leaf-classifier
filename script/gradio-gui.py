@@ -1,16 +1,15 @@
 import gradio as gr
+import os
 
 from script.Inference import predict
 
-# def greet(name):
-#     return "Hello " + name + "!"
 
-# demo = gr.Interface(fn=greet, inputs="text", outputs="text")
+def models_dropdown():
+    items = os.listdir('checkpoint')
+    return items
 
-# demo.launch()  
 
 gr.Interface(fn=predict, 
-             inputs=gr.Image(type="pil"),
+             inputs=[gr.inputs.Image(),gr.Dropdown(models_dropdown())],
              outputs=gr.Label(num_top_classes=3)
-            
             ).launch()

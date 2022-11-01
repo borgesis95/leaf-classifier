@@ -28,7 +28,7 @@ class AvgMeter():
             return None
 
 
-def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs',feature_extraction = False):
+def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs',feature_extraction = False,data_augmentation = False):
     
     print("Learning rate --> ",lr)
     print("Feature extraction --> ",feature_extraction)
@@ -37,19 +37,18 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
     # Se il modello è stato salvato (e se il flag loadcheckpoint è presente), allora verrà caricato il modello
     # allenato precedentemente
     if loadcheckpoint:
-        if(os.path.isfile('./checkpoint/' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_checkpoint.pth')):
+        if(os.path.isfile('./checkpoint/' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)+'_checkpoint.pth')):
             print("loading checkpoint...")
-            model.load_state_dict(torch.load('./checkpoint/' + modelName + '_lr=' + str(lr)+'_fe='+str(feature_extraction)+'_checkpoint.pth')['state_dict'])   
+            model.load_state_dict(torch.load('./checkpoint/' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)+'_checkpoint.pth')['state_dict'])   
        
 
     # -- Loss
     criterion = nn.CrossEntropyLoss()
     optimizer = custom_optimizer(model,lr,momentum=momentum,feature_extraction=feature_extraction)
-    # optimizer = SGD(model.parameters(),lr,momentum=momentum)
 
     loss_meter = AvgMeter()
     acc_meter = AvgMeter()
-    writer = SummaryWriter(join(logdir,exp_name+"_lr="+str(lr)))
+    writer = SummaryWriter(join(logdir,exp_name+"_lr="+str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)))
 
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -68,7 +67,7 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
         torch.save({
             'state_dict' : model.state_dict(),
             'epoch' : epoch
-        }, "{}{}_{}_{}.pth".format('checkpoint\\',exp_name,"lr="+str(lr) +'_fe='+str(feature_extraction),'checkpoint'))
+        }, "{}{}_{}_{}.pth".format('checkpoint\\',exp_name,"lr="+str(lr) +'_fe='+str(feature_extraction)+'_da='+str(data_augmentation),'checkpoint'))
 
     
     global_step = 0

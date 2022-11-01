@@ -34,7 +34,7 @@ datasetDataFrame = pd.DataFrame({
 })
 
 # Divisione del dataset in Train,Validation e Test set.
-trainingDf , validationDf ,testDf = split_train_val_test(dataset=datasetDataFrame,percentual=[0.5,0.2,0.3])
+trainingDf , validationDf ,testDf = split_train_val_test(dataset=datasetDataFrame,percentual=[0.6,0.2,0.2])
 
 trainingDf.to_csv('training.csv',index=None)
 validationDf.to_csv('validation.csv',index=None)

@@ -16,12 +16,23 @@ def split_train_val_test(dataset: DataFrame,percentual: array):
     return train,val,test
 
 
-def load_dataset():
+def load_dataset(data_augmentation):
 
-    train_transforms = transforms.Compose([
-                        transforms.ToTensor(),
-                        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]) 
+
+    if data_augmentation:
+        train_transforms = transforms.Compose([
+                           transforms.RandomHorizontalFlip(),
+                           transforms.ColorJitter(),
+                           transforms.ToTensor(),
+                           transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+    
+    else:
+
+        train_transforms = transforms.Compose([
+                            transforms.ToTensor(),
+                            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]) 
 
     
                         
@@ -43,7 +54,7 @@ def load_dataset():
     valid_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
 
-    return train_loader,valid_loader,test_loader
+    return train_loader,valid_loader,test_loader,train_dataset
 
 
 

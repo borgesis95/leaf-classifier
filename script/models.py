@@ -20,7 +20,7 @@ class GoogleNet():
         
 class SqueezeNet():
     def get_model(self,num_class = 3, pretrained = True,feature_extraction = False):
-        model = squeezenet1_1()
+        model = squeezenet1_1(pretrained=True)
         set_parameter_requires_grad(model, feature_extraction)
         model.classifier[1] = nn.Conv2d(512, num_class, kernel_size=(1, 1), stride=(1, 1))
         model.num_classes = num_class
