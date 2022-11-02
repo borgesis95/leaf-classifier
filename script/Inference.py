@@ -105,11 +105,10 @@ def predict(data,parameters):
     print("input",parameters)
     labels = ['Alloro','Edera','Nespola']
     image = transforms.Compose([
-        transforms.Resize(320),
+        transforms.Resize(224),
         # wastebin will be centered in the photo (photo from smartphone has usually height > width)
         # use centerCrop to exclude other parts of images not necessary, like floor
         # tried also witouth centerCrop, using centerCrop gives better result
-        transforms.CenterCrop(224),
         transforms.ToTensor()
     ])(Image.fromarray(data.astype('uint8'), 'RGB')).unsqueeze(0)
 

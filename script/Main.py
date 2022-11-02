@@ -46,7 +46,7 @@ def norm(im):
 
 
 if  __name__ =='__main__':
-   training('resnet',True,50,lr=0.002,feature_extr=False,data_augmentation=True)    
+   training('squeezenet',True,50,lr=0.001,feature_extr=False,data_augmentation=True)    
 #   train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True)
 
 #   plt.figure(figsize=(12,4))

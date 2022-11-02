@@ -20,6 +20,7 @@ def load_dataset(data_augmentation):
 
 
     if data_augmentation:
+        print("Dataaugmentation")
         train_transforms = transforms.Compose([
                            transforms.RandomHorizontalFlip(),
                            transforms.ColorJitter(),
