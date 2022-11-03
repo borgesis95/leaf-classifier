@@ -42,6 +42,7 @@ def get_model(param_file):
         model.num_classes = num_class
 
 
+    print("paramfile"+ param_file)
     #Load dictionary
     if(os.path.isfile('./checkpoint/'+ param_file)):
             print("carico i parametri..")
@@ -55,8 +56,8 @@ def predict(data,parameters):
 
 
     print("input",parameters)
-    labels = ['Limone','melograno','mango']
-    
+    # labels = ['Limone','melograno','mango']
+    labels = ['Alloro','Edera','Nespola']
     image = transforms.Compose([
         transforms.Resize(224),
         transforms.ToTensor()

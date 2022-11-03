@@ -16,9 +16,7 @@ def split_train_val_test(dataset: DataFrame,percentual: array):
     return train,val,test
 
 
-def load_dataset(data_augmentation,training_csv ='training',validation_csv='validation'):
-
-
+def load_dataset(data_augmentation,training_csv ='training',validation_csv='validation',test_csv='test'):
     if data_augmentation:
         print("Dataaugmentation")
         train_transforms = transforms.Compose([
@@ -47,7 +45,7 @@ def load_dataset(data_augmentation,training_csv ='training',validation_csv='vali
     # -- Caricamento dai CSV ---
     train_dataset = CSVImageDataset('./'+training_csv+'.csv',transform=train_transforms)
     validation_dataset = CSVImageDataset('./'+validation_csv+'.csv',transform=validation_transforms)
-    test_dataset = CSVImageDataset('./'+validation_csv+'.csv',transform=validation_transforms)
+    test_dataset = CSVImageDataset('./'+test_csv+'.csv',transform=validation_transforms)
 
     # -- Utilizzo Dataloader ---
 

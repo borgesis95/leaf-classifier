@@ -28,7 +28,8 @@ class AvgMeter():
             return None
 
 
-def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs',feature_extraction = False,data_augmentation = False):
+def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs',feature_extraction = False,
+data_augmentation = False,external_dataset = False):
     
     print("Learning rate --> ",lr)
     print("Feature extraction --> ",feature_extraction)
@@ -37,9 +38,10 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
     # Se il modello è stato salvato (e se il flag loadcheckpoint è presente), allora verrà caricato il modello
     # allenato precedentemente
     if loadcheckpoint:
-        if(os.path.isfile('./checkpoint/' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)+'_checkpoint.pth')):
-            print("loading checkpoint...")
-            model.load_state_dict(torch.load('./checkpoint/' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)+'_checkpoint.pth')['state_dict'])   
+        chekcpoint_path = './checkpoint/external='+ str(external_dataset)+'_' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)+'_checkpoint.pth';
+        if(os.path.isfile(chekcpoint_path)):
+            print("loading checkpoint:")
+            model.load_state_dict(torch.load(chekcpoint_path)['state_dict'])   
        
 
     # -- Loss
@@ -48,7 +50,8 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
 
     loss_meter = AvgMeter()
     acc_meter = AvgMeter()
-    writer = SummaryWriter(join(logdir,exp_name+"_lr="+str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)))
+    summary_path = join(logdir,'external='+str(external_dataset)+'_'+exp_name+"_lr="+str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation))
+    writer = SummaryWriter(summary_path)
 
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -67,7 +70,7 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
         torch.save({
             'state_dict' : model.state_dict(),
             'epoch' : epoch
-        }, "{}{}_{}_{}.pth".format('checkpoint\\',exp_name,"lr="+str(lr) +'_fe='+str(feature_extraction)+'_da='+str(data_augmentation),'checkpoint'))
+        }, "{}{}_{}_{}.pth".format('checkpoint\\','external='+ str(external_dataset),exp_name,"lr="+str(lr) +'_fe='+str(feature_extraction)+'_da='+str(data_augmentation),'checkpoint'))
 
     
     global_step = 0
@@ -115,8 +118,7 @@ def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_l
                 writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
        
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
-
-        save(model, e,lr)
+        save(model,e,lr)
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 

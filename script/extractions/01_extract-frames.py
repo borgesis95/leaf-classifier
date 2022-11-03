@@ -3,14 +3,14 @@ import cv2
 import os
 
 count = 0
+
+# This method get frames from video and save records <image_path,labels> on a file
 def get_frame(path,imagePath,framesNumber,textFile,labelClass):
     global count
     video = cv2.VideoCapture(path)
     totalFrames = video.get(cv2.CAP_PROP_FRAME_COUNT)
 
     frames = totalFrames // framesNumber    
-    print("frames",frames)
-
     for i in range(framesNumber):
         video.set(1,i*frames)
         ret, frame = video.read()
@@ -26,7 +26,8 @@ def get_frame(path,imagePath,framesNumber,textFile,labelClass):
 
 if __name__ =="__main__":
 
-    print("Start Frame extraction...")
+    print("Start Frame extraction:")
+   
     class_dictionary = {
         "alloro-2" : 0,
         "edera": 1,
@@ -34,9 +35,7 @@ if __name__ =="__main__":
     }
     source = ['alloro-2','edera','nespole']
     videoPath = 'dataset/'
-
     frames_per_video = 300
-    print("Numero di frame per video - ",frames_per_video)
     labels = open('./labels.txt','a')
 
     for curr_folder in (source):
