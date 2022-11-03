@@ -26,7 +26,7 @@ def get_Model(model_value,feature_extraction):
 def training(model_name,load_dict,epochs_number,lr = 0.001,feature_extr = False,data_augmentation=False):
 
 
-    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation)
+    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation,training_csv='training_2',validation_csv='validation_2')
     model = get_Model(model_name,feature_extr)
 
     model = trainval_classifier(model, load_dict, model_name, train_loader, validation_loader, lr=lr, exp_name=model_name, momentum=0.99, epochs=epochs_number,feature_extraction=feature_extr,data_augmentation = data_augmentation)
@@ -46,8 +46,9 @@ def norm(im):
 
 
 if  __name__ =='__main__':
-   training('squeezenet',True,50,lr=0.001,feature_extr=False,data_augmentation=True)    
-#   train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True)
+  training('alexnet',True,50,lr=0.0012,feature_extr=False,data_augmentation=True)    
+#   train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='training_2',validation_csv='validation_2')
+
 
 #   plt.figure(figsize=(12,4))
 #   for i in range(10):
