@@ -63,3 +63,8 @@ def set_parameter_requires_grad(model, feature_extracting):
         for param in model.parameters():
             param.requires_grad = False
 
+
+def write_reacaps(saving_text):
+    
+    with open('recaps.txt', 'a') as f:
+        f.write(saving_text +'\n')

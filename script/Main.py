@@ -4,7 +4,7 @@ from script.Trainer import trainval_classifier
 from script.models import SqueezeNet,AlexNet,ResNet,GoogleNet
 import os
 from sklearn.metrics import accuracy_score
-from script.utils.utils import load_dataset
+from script.utils.utils import load_dataset,write_reacaps
 from matplotlib import pyplot as plt
 
 def get_Model(model_value,feature_extraction):
@@ -27,21 +27,20 @@ def get_Model(model_value,feature_extraction):
 def train(model_name,load_checkpoint,external,epochs,lr = 0.001,feature_extr = False,data_augmentation=False,):
     train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation,training_csv='training',validation_csv='validation')
     model = get_Model(model_name,feature_extr)
+   
     momentum = 0.99
     print("Learning rate: ",lr)
     print("Feature extraction:",feature_extr)
 
     PATH = model_name+'_ep='+str(epochs)+'_feature_extraction=_'+str(feature_extr)+'_da='+str(data_augmentation)+'_external='+str(external)+'_lr=' +str(lr)
-    
-    model = trainval_classifier(model,load_checkpoint,train_loader,validation_loader, lr,epochs,momentum,feature_extr,PATH)
+    model,time_elapsed = trainval_classifier(model,load_checkpoint,train_loader,validation_loader, lr,epochs,momentum,feature_extr,PATH)
 
     predictions,labels = test_classifier(model,test_loader)
     accuracy = accuracy_score(labels,predictions)*100
     print("Accuracy of : ",model_name," : ",accuracy)
-    return accuracy,model
 
-
-
+    result = model_name + "---accuracy:" + str(accuracy) +'---time----'+ str(time_elapsed)+', '+ PATH
+    write_reacaps(result)
 
 
 def norm(im):
@@ -68,8 +67,8 @@ if  __name__ =='__main__':
     MODEL_NAME="alexnet"
     LOAD_CHECKPOINT = True
     EXTERNAL = False,
-    EPOCHS = 25
-    LEARNING_RATE = 0.01
+    EPOCHS = 50
+    LEARNING_RATE = 0.001
     FEATURE_EXTR = False
     DATA_AUGMENTATION = True
 

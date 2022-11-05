@@ -1,0 +1,1 @@
+alexnet---accuracy:96.69753086419753---time----2297.46, alexnet_ep=50_feature_extraction=_False_da=True_external=(False,)_lr=0.001

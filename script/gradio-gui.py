@@ -5,7 +5,7 @@ from script.Inference import predict
 
 
 def models_items():
-    items = os.listdir('checkpoint')
+    items = os.listdir('checkpoint_05_11')
     return items
 
 

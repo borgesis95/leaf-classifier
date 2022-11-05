@@ -31,13 +31,15 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
 
     checkpoint_dir = "checkpoint_05_11"
     logdir = "logs_05_11"
+
+    checkpoint_path = './'+checkpoint_dir+'/'+ PATH +'_checkpoint.pth'
     since = time.time()
 
     #If model has been saved, and user choose to load old model, training will restart to compute parameters from previous checkpoint
     if loadcheckpoint:
-        if(os.path.isfile('./'+checkpoint_dir+'/'+ PATH +'_checkpoint.pth')):
+        if(os.path.isfile(checkpoint_path)):
             print("loading checkpoint:")
-            model.load_state_dict(torch.load(PATH+'_checkpoint.pth')['state_dict'])   
+            model.load_state_dict(torch.load(checkpoint_path)['state_dict'])   
        
 
     # -- Loss
@@ -64,7 +66,7 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
         torch.save({
             'state_dict' : model.state_dict(),
             'epoch' : epoch
-        }, "{}_{}_{}.pth".format(checkpoint_dir+'\\',PATH,'checkpoint'))
+        }, "{}{}_{}.pth".format(checkpoint_dir+'\\',PATH,'checkpoint'))
 
     
     global_step = 0
@@ -110,8 +112,7 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
         save(model,e)
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-
-    return model
+    return model,round(time_elapsed,2)
 
 
 

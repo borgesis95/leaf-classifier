@@ -23,7 +23,7 @@ def get_model(param_file):
     model = ""
 
     modelname  = param_file.split('_')[0]
-
+    checkpoint_path ="checkpoint_05_11"
 
     if modelname =="alexnet":
         model = AlexNet()
@@ -42,9 +42,8 @@ def get_model(param_file):
 
     
     #Load dictionary
-    if(os.path.isfile('./checkpoint/'+ param_file)):
-            print("carico i parametri..")
-            model.load_state_dict(torch.load('./checkpoint/'+ param_file)['state_dict'])    
+    if(os.path.isfile('./'+checkpoint_path+'/'+ param_file)):
+            model.load_state_dict(torch.load('./'+checkpoint_path+'/'+ param_file)['state_dict'])    
     else :
         print("Non carico i parametri",param_file)
     return model
