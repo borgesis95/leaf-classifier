@@ -1,4 +1,3 @@
-from pickletools import optimize
 import torch
 import os  
 from torch import nn
@@ -28,20 +27,17 @@ class AvgMeter():
             return None
 
 
-def trainval_classifier(model,loadcheckpoint,modelName,train_loader,validation_loader,exp_name='experiment', lr=0.001, epochs=50, momentum=0.99,logdir='logs',feature_extraction = False,
-data_augmentation = False,external_dataset = False):
-    
-    print("Learning rate --> ",lr)
-    print("Feature extraction --> ",feature_extraction)
+def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,epochs, momentum,feature_extraction,PATH):
+
+    checkpoint_dir = "checkpoint_05_11"
+    logdir = "logs_05_11"
     since = time.time()
 
-    # Se il modello è stato salvato (e se il flag loadcheckpoint è presente), allora verrà caricato il modello
-    # allenato precedentemente
+    #If model has been saved, and user choose to load old model, training will restart to compute parameters from previous checkpoint
     if loadcheckpoint:
-        chekcpoint_path = './checkpoint/external='+ str(external_dataset)+'_' + modelName +'_lr=' +str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation)+'_checkpoint.pth';
-        if(os.path.isfile(chekcpoint_path)):
+        if(os.path.isfile('./'+checkpoint_dir+'/'+ PATH +'_checkpoint.pth')):
             print("loading checkpoint:")
-            model.load_state_dict(torch.load(chekcpoint_path)['state_dict'])   
+            model.load_state_dict(torch.load(PATH+'_checkpoint.pth')['state_dict'])   
        
 
     # -- Loss
@@ -50,7 +46,7 @@ data_augmentation = False,external_dataset = False):
 
     loss_meter = AvgMeter()
     acc_meter = AvgMeter()
-    summary_path = join(logdir,'external='+str(external_dataset)+'_'+exp_name+"_lr="+str(lr)+'_fe='+str(feature_extraction)+'_da='+str(data_augmentation))
+    summary_path = join(logdir,PATH)
     writer = SummaryWriter(summary_path)
 
 
@@ -62,15 +58,13 @@ data_augmentation = False,external_dataset = False):
         'valid' : validation_loader
 }
 
-    def save(model,epoch,lr):
-        print("saving checkpoint...");
-
-        if not os.path.exists('checkpoint'):
-            os.makedirs('checkpoint')
+    def save(model,epoch):
+        if not os.path.exists(checkpoint_dir):
+            os.makedirs(checkpoint_dir)
         torch.save({
             'state_dict' : model.state_dict(),
             'epoch' : epoch
-        }, "{}{}_{}_{}.pth".format('checkpoint\\','external='+ str(external_dataset),exp_name,"lr="+str(lr) +'_fe='+str(feature_extraction)+'_da='+str(data_augmentation),'checkpoint'))
+        }, "{}_{}_{}.pth".format(checkpoint_dir+'\\',PATH,'checkpoint'))
 
     
     global_step = 0
@@ -78,15 +72,11 @@ data_augmentation = False,external_dataset = False):
         print('Epoch {}/{}'.format(e, epochs - 1))
         print('-' * 10)
 
-         # Saranno effettuate due iterazioni una per il training ed una per il validation
+        #Iteration for train and validation
         for mode in ['train' , 'valid']:
             loss_meter.reset(); 
             acc_meter.reset();
             model.train() if mode == 'train' else model.eval()
-          
-
-            # Abilitazione dei gradienti
-
             with torch.set_grad_enabled(mode=='train'):
                 for i, batch in enumerate(loader[mode]):
                     x = batch[0].to(device)
@@ -105,7 +95,6 @@ data_augmentation = False,external_dataset = False):
                         optimizer.step()
                         optimizer.zero_grad()
                     acc = accuracy_score(y.to('cpu'),output.to('cpu').max(1)[1])
-                    # numero di elementi nel batch
                     n = batch[0].shape[0] 
                     loss_meter.add(loss.item(),n)
                     acc_meter.add(acc,n)
@@ -118,7 +107,7 @@ data_augmentation = False,external_dataset = False):
                 writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
        
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
-        save(model,e,lr)
+        save(model,e)
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 

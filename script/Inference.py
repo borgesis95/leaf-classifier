@@ -24,7 +24,6 @@ def get_model(param_file):
 
     modelname  = param_file.split('_')[0]
 
-    print("modelname",modelname)
 
     if modelname =="alexnet":
         model = AlexNet()
@@ -41,12 +40,13 @@ def get_model(param_file):
         model.classifier[1] = nn.Conv2d(512, num_class, kernel_size=(1, 1), stride=(1, 1))
         model.num_classes = num_class
 
-
-    print("paramfile"+ param_file)
+    
     #Load dictionary
     if(os.path.isfile('./checkpoint/'+ param_file)):
             print("carico i parametri..")
             model.load_state_dict(torch.load('./checkpoint/'+ param_file)['state_dict'])    
+    else :
+        print("Non carico i parametri",param_file)
     return model
 
 

@@ -23,4 +23,5 @@ def test_classifier(model,loader):
         predictions.extend(list(preds))
         labels.extend(list(label))
 
-    return np.array(predictions) , np.array(labels)
+    return np.array(predictions) ,np.array(labels)
+

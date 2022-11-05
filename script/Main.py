@@ -8,7 +8,6 @@ from script.utils.utils import load_dataset
 from matplotlib import pyplot as plt
 
 def get_Model(model_value,feature_extraction):
-
     model_value = model_value.lower()
     model =''
     if  model_value == 'squeezenet':
@@ -23,20 +22,26 @@ def get_Model(model_value,feature_extraction):
 
 
 
-def training(model_name,load_dict,external,epochs_number,lr = 0.001,feature_extr = False,data_augmentation=False,):
 
 
+def train(model_name,load_checkpoint,external,epochs,lr = 0.001,feature_extr = False,data_augmentation=False,):
     train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation,training_csv='training',validation_csv='validation')
     model = get_Model(model_name,feature_extr)
+    momentum = 0.99
+    print("Learning rate: ",lr)
+    print("Feature extraction:",feature_extr)
 
-    model = trainval_classifier(model, load_dict, model_name, train_loader, validation_loader, lr=lr, exp_name=model_name, momentum=0.99, epochs=epochs_number,
-    feature_extraction=feature_extr,data_augmentation = data_augmentation,external_dataset=external)
-
+    PATH = model_name+'_ep='+str(epochs)+'_feature_extraction=_'+str(feature_extr)+'_da='+str(data_augmentation)+'_external='+str(external)+'_lr=' +str(lr)
     
+    model = trainval_classifier(model,load_checkpoint,train_loader,validation_loader, lr,epochs,momentum,feature_extr,PATH)
+
     predictions,labels = test_classifier(model,test_loader)
     accuracy = accuracy_score(labels,predictions)*100
     print("Accuracy of : ",model_name," : ",accuracy)
     return accuracy,model
+
+
+
 
 
 def norm(im):
@@ -45,14 +50,30 @@ def norm(im):
 
 
 
+def show_image():
+    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='training',validation_csv='validation')
+
+
+    plt.figure(figsize=(12,4))
+    for i in range(10):
+        plt.subplot(2,5,i+1)
+        plt.imshow(norm(train_dataset[0][0].numpy().transpose(1,2,0)))
+    plt.show()
+
+
+
 
 if  __name__ =='__main__':
-  training('alexnet',True,False,50,lr=0.001,feature_extr=False,data_augmentation=True)    
-#   train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='training_2',validation_csv='validation_2')
 
+    MODEL_NAME="alexnet"
+    LOAD_CHECKPOINT = True
+    EXTERNAL = False,
+    EPOCHS = 25
+    LEARNING_RATE = 0.01
+    FEATURE_EXTR = False
+    DATA_AUGMENTATION = True
 
-#   plt.figure(figsize=(12,4))
-#   for i in range(10):
-#      plt.subplot(2,5,i+1)
-#      plt.imshow(norm(train_dataset[0][0].numpy().transpose(1,2,0)))
-#   plt.show()
+    train(MODEL_NAME,LOAD_CHECKPOINT,EXTERNAL,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    
+    # show_image()
+
+ 

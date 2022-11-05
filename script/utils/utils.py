@@ -18,10 +18,10 @@ def split_train_val_test(dataset: DataFrame,percentual: array):
 
 def load_dataset(data_augmentation,training_csv ='training',validation_csv='validation',test_csv='test'):
     if data_augmentation:
-        print("Dataaugmentation")
         train_transforms = transforms.Compose([
-                           transforms.Resize(224),
                            transforms.RandomHorizontalFlip(),
+                           transforms.RandomRotation(180),
+                           transforms.RandomCrop(170),
                            transforms.ColorJitter(),
                            transforms.ToTensor(),
                            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
@@ -37,20 +37,19 @@ def load_dataset(data_augmentation,training_csv ='training',validation_csv='vali
     
                         
     validation_transforms = transforms.Compose([
-                            transforms.Resize(224),
+                            # transforms.Resize(224),
                             transforms.ToTensor(),
                             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
 
-    # -- Caricamento dai CSV ---
+
     train_dataset = CSVImageDataset('./'+training_csv+'.csv',transform=train_transforms)
     validation_dataset = CSVImageDataset('./'+validation_csv+'.csv',transform=validation_transforms)
     test_dataset = CSVImageDataset('./'+test_csv+'.csv',transform=validation_transforms)
 
-    # -- Utilizzo Dataloader ---
-
     batch_size = 32
     num_workers = 2
+
     train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True)
     valid_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
