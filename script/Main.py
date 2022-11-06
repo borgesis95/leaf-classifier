@@ -64,7 +64,7 @@ def show_image():
 
 if  __name__ =='__main__':
 
-    MODEL_NAME="alexnet"
+    MODEL_NAME="resnet"
     LOAD_CHECKPOINT = True
     EXTERNAL = False,
     EPOCHS = 50
