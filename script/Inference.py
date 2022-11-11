@@ -6,7 +6,7 @@ import torch
 import os
 from torch import nn
 
-from torchvision.models import squeezenet1_1,AlexNet,vgg16,resnet18
+from torchvision.models import squeezenet1_1,AlexNet,resnet18
 from matplotlib import pyplot as plt
 
 def get_transform(im):
@@ -23,7 +23,7 @@ def get_model(param_file):
     model = ""
 
     modelname  = param_file.split('_')[0]
-    checkpoint_path ="checkpoint_05_11"
+    checkpoint_path ="checkpoint"
 
     if modelname =="alexnet":
         model = AlexNet()
@@ -43,6 +43,7 @@ def get_model(param_file):
     
     #Load dictionary
     if(os.path.isfile('./'+checkpoint_path+'/'+ param_file)):
+            print("Carico i parametri")
             model.load_state_dict(torch.load('./'+checkpoint_path+'/'+ param_file)['state_dict'])    
     else :
         print("Non carico i parametri",param_file)

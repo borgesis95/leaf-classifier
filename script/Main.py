@@ -67,7 +67,7 @@ if  __name__ =='__main__':
     MODEL_NAME="resnet"
     LOAD_CHECKPOINT = True
     EXTERNAL = False,
-    EPOCHS = 50
+    EPOCHS = 10
     LEARNING_RATE = 0.001
     FEATURE_EXTR = False
     DATA_AUGMENTATION = True
