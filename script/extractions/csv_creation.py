@@ -1,58 +1,48 @@
-import os
 import random 
 import numpy as np
 import pandas as pd
-from script.utils.utils import split_train_val_test
+from sklearn.model_selection import train_test_split
 
 
 
-def  put_on_labels_txt():
-    class_dictionary = {
-        "Limone": 0,
-        "Melograno":1,
-        "Mango":2
-    }
+def createDataFrame(label_file):
+    label_path = './'+label_file
+    myFile = np.loadtxt(label_path,dtype=str,delimiter=",")
 
-    source = ['Limone','Melograno','Mango']
-    frames_path = './external_dataset/'
-
-    labels = open ('./labels_2.txt','a')
-
-    for curr_folder in (source):
-        path =  frames_path + curr_folder
-        i = 0
-        for filename in os.listdir(path):
-            label_class = class_dictionary[curr_folder]
-            labels.write(curr_folder+'/'+filename+ ', %d\n' %(label_class))
-    labels.close()
-
-
-def extraction_csv():
-    random.seed(1234)
-    np.random.seed(1234)
-
-    labelsFile = np.loadtxt("./labels_2.txt",dtype=str, delimiter=",")
+    file_type = label_file.split('.')[1]
 
     images = []
     labels = []
-    for i in range(len(labelsFile)):
-        images.append('external_dataset/'+labelsFile[i][0])
-        labels.append(labelsFile[i][1])
+
+    for i in range(len(myFile)):
+        images.append('frames/'+file_type+'/' + myFile[i][0])
+        labels.append(myFile[i][1])
+    
     print("Total images: %d , Total Labels: %d" %(len(images),len(labels)))
-    datasetDataFrame = pd.DataFrame({
-        'image' : images,
-        'labels' :  labels
-    })
-    trainingDf , validationDf ,testDf = split_train_val_test(dataset=datasetDataFrame,percentual=[0.6,0.2,0.2])
-    trainingDf.to_csv('training_2.csv',index=None)
-    validationDf.to_csv('validation_2.csv',index=None)
-    
-    datasetDataFrame.to_csv('all_2.csv',index=None)
+    return pd.DataFrame({
+    'image' : images,
+    'labels' :  labels
+})
+
+
+
 if __name__ == "__main__":
+    random.seed(1234)
+    np.random.seed(1234)
+    label_path = "./labels.txt"
 
-    put_on_labels_txt()
-    extraction_csv()
-    
+    labels_files = ['labels.train.txt','labels.test.txt'];
+    # Loading labels files
+    dataframes = []
 
-     
-    
+    for file in labels_files:
+        dataframe = createDataFrame(file)
+        dataframes.append(dataframe)
+
+
+    trainingDf , val  = train_test_split(dataframes[0],test_size = 0)
+    validationDf,testDf = train_test_split(dataframes[1],test_size = 0.5)
+
+    trainingDf.to_csv('train.new.csv',index=None)
+    validationDf.to_csv('validation.new.csv',index=None)
+    testDf.to_csv('test.new.csv',index=None)
