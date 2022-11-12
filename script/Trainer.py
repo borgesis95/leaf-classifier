@@ -29,8 +29,8 @@ class AvgMeter():
 
 def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,epochs, momentum,feature_extraction,PATH):
 
-    checkpoint_dir = "checkpoint_05_11"
-    logdir = "logs_05_11"
+    checkpoint_dir = "checkpoint_12_11"
+    logdir = "logs_12_11"
 
     checkpoint_path = './'+checkpoint_dir+'/'+ PATH +'_checkpoint.pth'
     since = time.time()

@@ -1,16 +1,16 @@
 image,labels
-frames/train/leaf_2_5436.jpg, 2
-frames/train/leaf_0_1290.jpg, 0
-frames/train/leaf_1_3493.jpg, 1
-frames/train/leaf_0_1159.jpg, 0
-frames/train/leaf_1_2956.jpg, 1
 frames/train/leaf_2_6580.jpg, 2
+frames/train/leaf_2_5436.jpg, 2
+frames/train/leaf_1_3493.jpg, 1
+frames/train/leaf_0_949.jpg, 0
+frames/train/leaf_0_1574.jpg, 0
+frames/train/leaf_1_2956.jpg, 1
+frames/train/leaf_0_1290.jpg, 0
+frames/train/leaf_0_1159.jpg, 0
 frames/train/leaf_1_3786.jpg, 1
 frames/train/leaf_2_5888.jpg, 2
 frames/train/leaf_1_3752.jpg, 1
 frames/train/leaf_1_3166.jpg, 1
-frames/train/leaf_0_949.jpg, 0
-frames/train/leaf_0_1574.jpg, 0
 frames/train/leaf_1_2611.jpg, 1
 frames/train/leaf_1_3655.jpg, 1
 frames/train/leaf_2_5324.jpg, 2

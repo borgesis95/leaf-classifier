@@ -23,7 +23,7 @@ def get_model(param_file):
     model = ""
 
     modelname  = param_file.split('_')[0]
-    checkpoint_path ="checkpoint"
+    checkpoint_path ="checkpoint_12_11"
 
     if modelname =="alexnet":
         model = AlexNet()

@@ -2,3 +2,7 @@ alexnet---accuracy:96.69753086419753---time----2297.46, alexnet_ep=50_feature_ex
 resnet---accuracy:99.41358024691358---time----32289.9, resnet_ep=50_feature_extraction=_False_da=True_external=(False,)_lr=0.001
 resnet---accuracy:91.01851851851852---time----2617.86, resnet_ep=50_feature_extraction=_True_da=True_external=(False,)_lr=0.001
 ---- 
+alexnet---accuracy:61.06369008535785---time----1806.63, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+alexnet---accuracy:73.27642810242942---time----1751.28, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+alexnet---accuracy:63.23046618516087---time----594.43, alexnet_ep=10_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+alexnet---accuracy:75.18056467498359---time----1790.76, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001

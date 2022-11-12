@@ -24,8 +24,8 @@ def get_Model(model_value,feature_extraction):
 
 
 
-def train(model_name,load_checkpoint,external,epochs,lr = 0.001,feature_extr = False,data_augmentation=False,):
-    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation,training_csv='training',validation_csv='validation')
+def train(model_name,load_checkpoint,external,epochs,lr = 0.001,feature_extr = False,data_augmentation=False):
+    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation,training_csv='training.new',validation_csv='validation.new',test_csv='test.new')
     model = get_Model(model_name,feature_extr)
    
     momentum = 0.99
@@ -50,7 +50,7 @@ def norm(im):
 
 
 def show_image():
-    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='training',validation_csv='validation')
+    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='train.new',validation_csv='validation.new',test_csv='test.new')
 
 
     plt.figure(figsize=(12,4))
@@ -67,12 +67,12 @@ if  __name__ =='__main__':
     MODEL_NAME="resnet"
     LOAD_CHECKPOINT = True
     EXTERNAL = False,
-    EPOCHS = 10
+    EPOCHS = 50
     LEARNING_RATE = 0.001
     FEATURE_EXTR = False
     DATA_AUGMENTATION = True
 
-    train(MODEL_NAME,LOAD_CHECKPOINT,EXTERNAL,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    
-    # show_image()
+    #train(MODEL_NAME,LOAD_CHECKPOINT,EXTERNAL,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    
+    show_image()
 
  
