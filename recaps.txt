@@ -6,3 +6,4 @@ alexnet---accuracy:61.06369008535785---time----1806.63, alexnet_ep=25_feature_ex
 alexnet---accuracy:73.27642810242942---time----1751.28, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
 alexnet---accuracy:63.23046618516087---time----594.43, alexnet_ep=10_feature_extraction=_False_da=True_external=(False,)_lr=0.001
 alexnet---accuracy:75.18056467498359---time----1790.76, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+resnet---accuracy:94.22193040052528---time----3899.11, resnet_ep=50_feature_extraction=_False_da=True_external=(False,)_lr=0.001
