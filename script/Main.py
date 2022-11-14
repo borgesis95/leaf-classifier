@@ -10,6 +10,8 @@ from matplotlib import pyplot as plt
 def get_Model(model_value,feature_extraction):
     model_value = model_value.lower()
     model =''
+
+    print("modelvalue",model_value)
     if  model_value == 'squeezenet':
         model = SqueezeNet().get_model(feature_extraction = feature_extraction)
     elif model_value =='alexnet':
@@ -18,6 +20,7 @@ def get_Model(model_value,feature_extraction):
         model = ResNet().get_model(feature_extraction = feature_extraction)
     elif model_value == 'googlenet':
         model = GoogleNet().get_model(feature_extraction = feature_extraction)
+   
     return model  
 
 
@@ -67,9 +70,9 @@ if  __name__ =='__main__':
     MODEL_NAME="resnet"
     LOAD_CHECKPOINT = True
     EXTERNAL = False,
-    EPOCHS = 50
+    EPOCHS = 25
     LEARNING_RATE = 0.001
-    FEATURE_EXTR = False
+    FEATURE_EXTR = True
     DATA_AUGMENTATION = True
 
     train(MODEL_NAME,LOAD_CHECKPOINT,EXTERNAL,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    

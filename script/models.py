@@ -1,23 +1,9 @@
-from torchvision.models import squeezenet1_1,AlexNet as AlNet,vgg16,resnet18
+from torchvision.models import squeezenet1_1,AlexNet as AlNet,googlenet,resnet18
 from torch import nn
-from torchvision.models.googlenet import googlenet
 
 from script.utils.utils import set_parameter_requires_grad
 
-
-
-
-
-class GoogleNet():
-    def get_model(self,num_class = 3, pretrained = True,feature_extraction = False):
-        model = googlenet(pretrained=pretrained)
-        set_parameter_requires_grad(model, feature_extraction)
-        model.fc = nn.Linear(1024, num_class)
-        print("Run: GoogleNet: ",model)
-
-        return model
-
-        
+       
 class SqueezeNet():
     def get_model(self,num_class = 3, pretrained = True,feature_extraction = False):
         model = squeezenet1_1(pretrained=True)
@@ -46,3 +32,15 @@ class ResNet():
         print("Run ResNet: ",model)
 
         return model
+
+
+class GoogleNet():
+    def get_model(self,num_class = 3, pretrained = True,feature_extraction = False):
+        model = googlenet(pretrained=pretrained)
+        set_parameter_requires_grad(model, feature_extraction)
+        model.fc = nn.Linear(1024, num_class)
+        print("Run GoogleNet: ",model)
+
+        return model
+
+        

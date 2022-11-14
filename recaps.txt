@@ -7,3 +7,10 @@ alexnet---accuracy:73.27642810242942---time----1751.28, alexnet_ep=25_feature_ex
 alexnet---accuracy:63.23046618516087---time----594.43, alexnet_ep=10_feature_extraction=_False_da=True_external=(False,)_lr=0.001
 alexnet---accuracy:75.18056467498359---time----1790.76, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
 resnet---accuracy:94.22193040052528---time----3899.11, resnet_ep=50_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+googlenet---accuracy:84.5042678923178---time----203.63, googlenet_ep=2_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+resnet---accuracy:91.46421536441235---time----2113.73, resnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+resnet---accuracy:83.78200919238346---time----1889.74, resnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+squeezenet---accuracy:85.02954694681549---time----1588.69, squeezenet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.0001
+alexnet---accuracy:69.40249507550887---time----1585.83, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+alexnet---accuracy:34.14313854235063---time----1536.22, alexnet_ep=25_feature_extraction=_True_da=True_external=(False,)_lr=0.001
+resnet---accuracy:89.88837820091923---time----1606.01, resnet_ep=25_feature_extraction=_True_da=True_external=(False,)_lr=0.001

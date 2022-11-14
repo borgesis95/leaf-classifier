@@ -51,7 +51,7 @@ def load_dataset(data_augmentation,training_csv ='training',validation_csv='vali
     validation_dataset = CSVImageDataset('./'+validation_csv+'.csv',transform=validation_transforms)
     test_dataset = CSVImageDataset('./'+test_csv+'.csv',transform=validation_transforms)
 
-    batch_size = 32
+    batch_size = 16
     num_workers = 3
 
     train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True)
