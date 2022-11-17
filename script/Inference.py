@@ -49,11 +49,9 @@ def get_model(param_file):
     
     #Load dictionary
     if(os.path.isfile('./'+checkpoint_path+'/'+ param_file)):
-            print("Carico i parametri")
-       
+            print('Loads parameters..')   
             model.load_state_dict(torch.load('./'+checkpoint_path+'/'+ param_file)['state_dict'])    
-    else :
-        print("Non carico i parametri",param_file)
+    
     return model
 
 

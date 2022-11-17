@@ -67,13 +67,13 @@ def show_image():
 
 if  __name__ =='__main__':
 
-    MODEL_NAME="resnet"
+    MODEL_NAME="squeezenet"
     LOAD_CHECKPOINT = True
     EXTERNAL = False,
-    EPOCHS = 25
+    EPOCHS = 49
     LEARNING_RATE = 0.001
-    FEATURE_EXTR = True
-    DATA_AUGMENTATION = True
+    FEATURE_EXTR = False
+    DATA_AUGMENTATION = False
 
     train(MODEL_NAME,LOAD_CHECKPOINT,EXTERNAL,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    
     show_image()

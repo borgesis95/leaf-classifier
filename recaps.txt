@@ -14,3 +14,5 @@ squeezenet---accuracy:85.02954694681549---time----1588.69, squeezenet_ep=25_feat
 alexnet---accuracy:69.40249507550887---time----1585.83, alexnet_ep=25_feature_extraction=_False_da=True_external=(False,)_lr=0.001
 alexnet---accuracy:34.14313854235063---time----1536.22, alexnet_ep=25_feature_extraction=_True_da=True_external=(False,)_lr=0.001
 resnet---accuracy:89.88837820091923---time----1606.01, resnet_ep=25_feature_extraction=_True_da=True_external=(False,)_lr=0.001
+alexnet---accuracy:64.60932370321734---time----672.09, alexnet_ep=10_feature_extraction=_False_da=True_external=(False,)_lr=0.001
+alexnet---accuracy:62.311227839789886---time----3368.48, alexnet_ep=49_feature_extraction=_False_da=True_external=(False,)_lr=0.0001

@@ -19,20 +19,19 @@ def split_train_val_test(dataset: DataFrame,percentual: array):
 def load_dataset(data_augmentation,training_csv ='training',validation_csv='validation',test_csv='test'):
     if data_augmentation:
         train_transforms = transforms.Compose([
-                           transforms.Resize(224),
-                           transforms.CenterCrop(224),
+                           transforms.Resize(256),
+                           transforms.RandomCrop(224),
                            transforms.RandomVerticalFlip(),
                         #    transforms.RandomRotation(180),
-                           transforms.ColorJitter(brightness=1,saturation=2),
+                           transforms.ColorJitter(),
                            transforms.ToTensor(),
                            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
     
     else:
-        print("HERE")
         train_transforms = transforms.Compose([
                             transforms.Resize(512),
-                            # transforms.RandomCrop(224),
+                            transforms.RandomCrop(224),
                             transforms.ToTensor(),
                             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]) 
@@ -51,7 +50,7 @@ def load_dataset(data_augmentation,training_csv ='training',validation_csv='vali
     validation_dataset = CSVImageDataset('./'+validation_csv+'.csv',transform=validation_transforms)
     test_dataset = CSVImageDataset('./'+test_csv+'.csv',transform=validation_transforms)
 
-    batch_size = 16
+    batch_size = 64
     num_workers = 3
 
     train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True)
