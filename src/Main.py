@@ -1,10 +1,10 @@
 # default mean and std needed by pretrained models from pytorch
-from script.Testing import test_classifier
-from script.Trainer import trainval_classifier
-from script.models import SqueezeNet,AlexNet,ResNet,GoogleNet
+from src.Testing import test_classifier
+from src.Trainer import trainval_classifier
+from src.Models import SqueezeNet,AlexNet,ResNet,GoogleNet
 import os
 from sklearn.metrics import accuracy_score
-from script.utils.utils import load_dataset,write_reacaps
+from src.utils.utils import load_dataset,write_reacaps
 from matplotlib import pyplot as plt
 
 def get_Model(model_value,feature_extraction):

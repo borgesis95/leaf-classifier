@@ -1,5 +1,5 @@
 import gradio as gr
-from script.Main import train
+from src.Main import train
 def train(lr,model,epochs,da,fe,external):
 
     print("START")

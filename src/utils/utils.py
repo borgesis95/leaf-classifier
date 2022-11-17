@@ -4,7 +4,7 @@ from pandas.core.frame import DataFrame
 
 from torchvision import transforms
 from sklearn.model_selection import train_test_split
-from script.CsvImageDataset import CSVImageDataset
+from src.CsvImageDataset import CSVImageDataset
 from torch.utils.data import DataLoader
 
 

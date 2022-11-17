@@ -1,7 +1,7 @@
 from torchvision.models import squeezenet1_1,AlexNet as AlNet,googlenet,resnet18
 from torch import nn
 
-from script.utils.utils import set_parameter_requires_grad
+from src.utils.utils import set_parameter_requires_grad
 
        
 class SqueezeNet():

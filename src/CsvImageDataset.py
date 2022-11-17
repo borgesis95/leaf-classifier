@@ -1,9 +1,7 @@
-from torch.utils import data # necessary to create a map-style dataset https://pytorch.org/docs/stable/data.html
-from os.path import splitext, join
+from torch.utils import data
 from PIL import Image
 import numpy as np
 import pandas as pd
-from torchvision import transforms
 
 class CSVImageDataset(data.Dataset):
     def __init__(self,csv, transform = None):
@@ -15,7 +13,7 @@ class CSVImageDataset(data.Dataset):
 
     def __getitem__(self, i):
         im_path, im_label = self.data.iloc[i]['image'], self.data.iloc[i].labels
-        im = Image.open(im_path)
+        im = Image.open(im_path).convert('RGB')
  
         if self.transform is not None:
             im = self.transform(im)

@@ -1,7 +1,7 @@
 import gradio as gr
 import os
 
-from script.Inference import predict
+from src.Inference import predict
 
 
 def models_items():

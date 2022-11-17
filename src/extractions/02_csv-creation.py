@@ -1,7 +1,7 @@
 import random 
 import numpy as np
 import pandas as pd
-from script.utils.utils import split_train_val_test
+from src.utils.utils import split_train_val_test
 
 if __name__ == "__main__":
     random.seed(1234)
