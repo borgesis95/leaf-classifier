@@ -6,7 +6,7 @@ from torchvision import transforms
 from sklearn.model_selection import train_test_split
 from src.CsvImageDataset import CSVImageDataset
 from torch.utils.data import DataLoader
-
+from src.config import TRAINING_CSV_DATASET_FILE,TEST_CSV_DATASET_FILE,VALIDATION_CSV_DATASET_FILE,BATCH_SIZE,NUM_WORKERS
 
 
 def split_train_val_test(dataset: DataFrame,percentual: array):
@@ -15,7 +15,7 @@ def split_train_val_test(dataset: DataFrame,percentual: array):
     return train,val,test
 
 
-def load_dataset(data_augmentation,training_csv ='training',validation_csv='validation',test_csv='test'):
+def load_dataset(data_augmentation):
     if data_augmentation:
         train_transforms = transforms.Compose([
                            transforms.Resize(256),
@@ -45,16 +45,14 @@ def load_dataset(data_augmentation,training_csv ='training',validation_csv='vali
     ])
 
 
-    train_dataset = CSVImageDataset('./'+training_csv+'.csv',transform=train_transforms)
-    validation_dataset = CSVImageDataset('./'+validation_csv+'.csv',transform=validation_transforms)
-    test_dataset = CSVImageDataset('./'+test_csv+'.csv',transform=validation_transforms)
+    train_dataset = CSVImageDataset(TRAINING_CSV_DATASET_FILE,transform=train_transforms)
+    validation_dataset = CSVImageDataset(VALIDATION_CSV_DATASET_FILE,transform=validation_transforms)
+    test_dataset = CSVImageDataset(TEST_CSV_DATASET_FILE,transform=validation_transforms)
 
-    batch_size = 64
-    num_workers = 3
 
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True)
-    valid_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
+    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, shuffle=True)
+    valid_loader = DataLoader(validation_dataset, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
 
 
 

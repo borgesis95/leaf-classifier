@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score
 from torch.utils.tensorboard import SummaryWriter
 from os.path import join
 import time
+from src.config import CHECKPOINT_DIR,LOG_DIR
 
 class AvgMeter():
     """ Calculates the loss and accuracy on individual batches"""
@@ -29,8 +30,8 @@ class AvgMeter():
 
 def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,epochs, momentum,feature_extraction,PATH):
 
-    checkpoint_dir = "checkpoint/checkpoint_13_11"
-    logdir = "logs/logs_13_11"
+    checkpoint_dir = CHECKPOINT_DIR
+    logdir = LOG_DIR
 
     checkpoint_path = './'+checkpoint_dir+'/'+ PATH +'_checkpoint.pth'
     since = time.time()
@@ -38,7 +39,7 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
     #If model has been saved, and user choose to load old model, training will restart to compute parameters from previous checkpoint
     if loadcheckpoint:
         if(os.path.isfile(checkpoint_path)):
-            print("loading checkpoint:")
+            print("loading checkpoint")
             model.load_state_dict(torch.load(checkpoint_path)['state_dict'])   
        
 

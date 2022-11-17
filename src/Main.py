@@ -6,12 +6,12 @@ import os
 from sklearn.metrics import accuracy_score
 from src.utils.utils import load_dataset,write_reacaps
 from matplotlib import pyplot as plt
+from src.config import MODEL_NAME,LOAD_CHECKPOINT,LEARNING_RATE,FEATURE_EXTR,DATA_AUGMENTATION,EPOCHS
 
 def get_Model(model_value,feature_extraction):
     model_value = model_value.lower()
     model =''
 
-    print("modelvalue",model_value)
     if  model_value == 'squeezenet':
         model = SqueezeNet().get_model(feature_extraction = feature_extraction)
     elif model_value =='alexnet':
@@ -27,15 +27,15 @@ def get_Model(model_value,feature_extraction):
 
 
 
-def train(model_name,load_checkpoint,external,epochs,lr = 0.001,feature_extr = False,data_augmentation=False):
-    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation,training_csv='train.new',validation_csv='validation.new',test_csv='test.new')
+def train(model_name,load_checkpoint,epochs,lr = 0.001,feature_extr = False,data_augmentation=False):
+    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=data_augmentation)
     model = get_Model(model_name,feature_extr)
    
     momentum = 0.99
-    print("Learning rate: ",lr)
+    print("Learning rate:",lr)
     print("Feature extraction:",feature_extr)
 
-    PATH = model_name+'_ep='+str(epochs)+'_feature_extraction=_'+str(feature_extr)+'_da='+str(data_augmentation)+'_external='+str(external)+'_lr=' +str(lr)
+    PATH = model_name+'_ep='+str(epochs)+'_feature_extraction=_'+str(feature_extr)+'_da='+str(data_augmentation)+'_lr=' +str(lr)
     model,time_elapsed = trainval_classifier(model,load_checkpoint,train_loader,validation_loader, lr,epochs,momentum,feature_extr,PATH)
 
     predictions,labels = test_classifier(model,test_loader)
@@ -55,7 +55,6 @@ def norm(im):
 def show_image():
     train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='train.new',validation_csv='validation.new',test_csv='test.new')
 
-
     plt.figure(figsize=(12,4))
     for i in range(10):
         plt.subplot(2,5,i+1)
@@ -66,16 +65,7 @@ def show_image():
 
 
 if  __name__ =='__main__':
-
-    MODEL_NAME="squeezenet"
-    LOAD_CHECKPOINT = True
-    EXTERNAL = False,
-    EPOCHS = 49
-    LEARNING_RATE = 0.001
-    FEATURE_EXTR = False
-    DATA_AUGMENTATION = False
-
-    train(MODEL_NAME,LOAD_CHECKPOINT,EXTERNAL,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    
+    train(MODEL_NAME,LOAD_CHECKPOINT,EPOCHS,lr=LEARNING_RATE,feature_extr=FEATURE_EXTR,data_augmentation=DATA_AUGMENTATION)    
     show_image()
 
  
