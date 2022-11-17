@@ -103,11 +103,14 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
                     acc_meter.add(acc,n)
 
                     if mode == 'train':
-                        writer.add_scalar('loss/train', loss_meter.value(),global_step=global_step)
-                        writer.add_scalar('accuracy/train', acc_meter.value(),global_step=global_step)
+                        writer.add_scalar('loss/train', loss_meter.value(),e)
+                        writer.add_scalar('loss/valid', acc_meter.value(),e)
+                        writer.add_scalars('loss/valid-train', {'train':loss_meter.value(),
+                                'validation':acc_meter.value(),
+                                }, e)
 
-                writer.add_scalar('loss/' + mode, loss_meter.value(), global_step=global_step)
-                writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
+                writer.add_scalar('loss/' + mode, loss_meter.value(),e)
+                writer.add_scalar('accuracy/' + mode, acc_meter.value(), e)
        
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
         save(model,e)

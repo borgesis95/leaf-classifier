@@ -24,7 +24,7 @@ NUM_WORKERS = 3
 ## -- Main configuration
 
 MODEL_NAME = "squeezenet"
-EPOCHS = 1
+EPOCHS = 3
 LOAD_CHECKPOINT = True
 LEARNING_RATE = 0.001
 FEATURE_EXTR = False

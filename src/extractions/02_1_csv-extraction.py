@@ -7,12 +7,12 @@ from sklearn.model_selection import train_test_split
 
 
 
-def dataFrameCreation(label_path):
+def dataFrameCreation(label_path,type):
     images = []
     labels = []
 
     for i in range(len(label_path)):
-        images.append('frames/' + labelsFile[i][0])
+        images.append('frames/' + type +'/' +labelsFile[i][0])
         labels.append(labelsFile[i][1])
     print("Total images: %d , Total Labels: %d" %(len(images),len(labels)))
 
@@ -37,16 +37,15 @@ if __name__ == "__main__":
 
     dataFrames = []
     for file in LABELS_PATHS:
-        print("FILE",file)
         labelsFile = np.loadtxt(file,dtype=str, delimiter=",")
-        dataframe = dataFrameCreation(labelsFile)
+        dataset_type = file.split(".")[2]
+        dataframe = dataFrameCreation(labelsFile,dataset_type)
         dataFrames.append(dataframe)
 
 
 
 
 
-print("DATAFRAMES",dataFrames[0])
 
 
 # # split dataset on train,validation and test set.

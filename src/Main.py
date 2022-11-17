@@ -53,7 +53,7 @@ def norm(im):
 
 
 def show_image():
-    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True,training_csv='train.new',validation_csv='validation.new',test_csv='test.new')
+    train_loader,validation_loader,test_loader,train_dataset = load_dataset(data_augmentation=True)
 
     plt.figure(figsize=(12,4))
     for i in range(10):
