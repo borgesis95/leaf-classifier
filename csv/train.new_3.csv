@@ -1,5 +1,4 @@
 image,labels
-frames/train/leaf_0_52.jpg, 0
 frames/train/leaf_0_867.jpg, 0
 frames/train/leaf_0_1553.jpg, 0
 frames/train/leaf_1_3193.jpg, 1
@@ -2687,6 +2686,7 @@ frames/train/leaf_1_3334.jpg, 1
 frames/train/leaf_2_6001.jpg, 2
 frames/train/leaf_0_1420.jpg, 0
 frames/train/leaf_0_1283.jpg, 0
+frames/train/leaf_0_52.jpg, 0
 frames/train/leaf_1_4142.jpg, 1
 frames/train/leaf_1_4095.jpg, 1
 frames/train/leaf_0_28.jpg, 0

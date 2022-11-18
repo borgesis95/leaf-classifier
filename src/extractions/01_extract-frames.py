@@ -51,7 +51,7 @@ if __name__ =="__main__":
         count_tt = 0
         with os.scandir(path) as it:
 
-            training_percentage = 0.6
+            training_percentage = 0.5
 
             for entry in it:
                 folder =""

@@ -5,8 +5,7 @@ from PIL import Image
 import torch
 import os
 from torch import nn
-from collections import OrderedDict
-
+from src.config import GRADIO_LOAD_CHECKPOINT_PATH
 from torchvision.models import squeezenet1_1,AlexNet,resnet18,googlenet
 from matplotlib import pyplot as plt
 
@@ -24,7 +23,7 @@ def get_model(param_file):
     model = ""
 
     modelname  = param_file.split('_')[0]
-    checkpoint_path ="checkpoint_13_11"
+    checkpoint_path = GRADIO_LOAD_CHECKPOINT_PATH
 
     if modelname =="alexnet":
         model = AlexNet()
@@ -41,7 +40,6 @@ def get_model(param_file):
         model.classifier[1] = nn.Conv2d(512, num_class, kernel_size=(1, 1), stride=(1, 1))
         model.num_classes = num_class
     if modelname == "googlenet":
-        print("GOOGLE NET")
         model = googlenet()
         num_class = 3
         model.fc = nn.Linear(1024, num_class)
@@ -60,7 +58,6 @@ def get_model(param_file):
 def predict(data,parameters):
 
 
-    print("input",parameters)
     labels = ['Alloro','Edera','Nespola']
     image = transforms.Compose([
         transforms.Resize(224),

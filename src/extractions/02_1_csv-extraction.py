@@ -52,7 +52,7 @@ if __name__ == "__main__":
 train,testval = train_test_split(dataFrames[0],test_size = 0)
 
 # Split second labels file into two partes for validation and test
-validation,test = train_test_split(dataFrames[1],test_size=0.4)
+validation,test = train_test_split(dataFrames[1],test_size=0.1)
 
 
 train.to_csv(TRAINING_CSV_FILE,index=None)
