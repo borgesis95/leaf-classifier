@@ -7,33 +7,33 @@
 LABELS_PATHS = ['./labels.train.txt','./labels.test.txt']
 
 ## Training,Validation and test file tell where to save CSV
-TRAINING_CSV_FILE = "csv/train.new_3.csv"
-VALIDATION_CSV_FILE = "csv/validation.new_3.csv"
-TEST_CSV_FILE="csv/test.new_3.csv"
+TRAINING_CSV_FILE = "csv/train.new_4.csv"
+VALIDATION_CSV_FILE = "csv/validation.new_4.csv"
+TEST_CSV_FILE="csv/test.new_4.csv"
 
 # -- Configuration parameters for DataLoader creation
 
 ## Config information which say from which CSV create train,valid,test set
-TRAINING_CSV_DATASET_FILE ="csv/train.new_2.csv"
-VALIDATION_CSV_DATASET_FILE = "csv/validation.new_2.csv"
-TEST_CSV_DATASET_FILE = "csv/test.new_2.csv"
+TRAINING_CSV_DATASET_FILE ="csv/train.new_3.csv"
+VALIDATION_CSV_DATASET_FILE = "csv/validation.new_3.csv"
+TEST_CSV_DATASET_FILE = "csv/test.new_3.csv"
 
 BATCH_SIZE = 32
 NUM_WORKERS = 3
 
 ## -- Main configuration
 
-MODEL_NAME = "resnet"
-EPOCHS = 25
+MODEL_NAME = "squeezenet"
+EPOCHS = 5
 LOAD_CHECKPOINT = True
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0005
 FEATURE_EXTR = False
-DATA_AUGMENTATION = False
+DATA_AUGMENTATION = True
 
 ## -- Train configuration
 
-CHECKPOINT_DIR = "checkpoint/epochs=25_train_2"
-LOG_DIR = "logs/epochs=25_train_2"
+CHECKPOINT_DIR = "checkpoint/epochs=25_test_5"
+LOG_DIR = "logs/epochs=25_test_5"
 
 ## -- Gradio configuration
-GRADIO_LOAD_CHECKPOINT_PATH="checkpoint/epochs=30_train_2"
+GRADIO_LOAD_CHECKPOINT_PATH="checkpoint/epochs=25_test_4"

@@ -38,7 +38,7 @@ if __name__ =="__main__":
     }
     source = ['alloro','edera','nespole']
     videoPath = 'dataset/'
-    frames_per_video = 145
+    frames_per_video = 200
 
     labels_train = open('./labels.train.txt','a')
     labels_test = open('./labels.test.txt','a')
@@ -51,7 +51,7 @@ if __name__ =="__main__":
         count_tt = 0
         with os.scandir(path) as it:
 
-            training_percentage = 0.5
+            training_percentage = 0.6
 
             for entry in it:
                 folder =""
@@ -67,7 +67,6 @@ if __name__ =="__main__":
                 get_frame(entry.path,'./frames/'+folder,frames_per_video,labels,class_dictionary[curr_folder])
                 count_tt = count_tt + 1
             
-            print("COUNT FINALE",count)
 
     labels.close()
     print('All frames are extracted')

@@ -7,6 +7,8 @@ from torch.utils.tensorboard import SummaryWriter
 from os.path import join
 import time
 from src.config import CHECKPOINT_DIR,LOG_DIR
+from torchnet.meter import AverageValueMeter
+import numpy as np
 
 class AvgMeter():
     """ Calculates the loss and accuracy on individual batches"""
@@ -48,6 +50,7 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
     optimizer = custom_optimizer(model,lr,momentum=momentum,feature_extraction=feature_extraction)
 
     loss_meter = AvgMeter()
+    valid_meter = AvgMeter()
     acc_meter = AvgMeter()
     summary_path = join(logdir,PATH)
     writer = SummaryWriter(summary_path)
@@ -74,6 +77,7 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
     for e in range(epochs):
         print('Epoch {}/{}'.format(e, epochs - 1))
         print('-' * 10)
+  
 
         #Iteration for train and validation
         for mode in ['train' , 'valid']:
@@ -92,25 +96,33 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
                     if mode == 'train':
                         loss.backward()
                         torch.cuda.empty_cache()
-                        
+
                         optimizer.step()
                         optimizer.zero_grad()
                     acc = accuracy_score(y.to('cpu'),output.to('cpu').max(1)[1])
                     n = batch[0].shape[0] 
                     loss_meter.add(loss.item(),n)
                     acc_meter.add(acc,n)
+                    
+
 
                     if mode == 'train':
-                        writer.add_scalar('loss/train', loss_meter.value(),global_step=global_step)
-                        writer.add_scalar('loss/valid', acc_meter.value(),global_step=global_step)
-                        writer.add_scalars('loss/valid-train', {'train':loss_meter.value(),
-                                'validation':acc_meter.value(),
-                                }, global_step=global_step)
 
-                writer.add_scalar('loss/' + mode, loss_meter.value(),global_step=global_step)
+                        writer.add_scalar('loss/train', loss_meter.value(),global_step=global_step)
+                        writer.add_scalar('accuracy/train', acc_meter.value(),global_step=global_step)
+                        print("loss_Acc",valid_meter.value())
+                        valid_meter.add(loss.item(),n)      
+
+                writer.add_scalar('loss/' + mode, loss_meter.value(), global_step=global_step)
                 writer.add_scalar('accuracy/' + mode, acc_meter.value(), global_step=global_step)
+             
+                    
        
         print('{} Loss: {:.4f} Acc: {:.4f}'.format(mode, loss_meter.value(), acc_meter.value()))
+      
+        writer.add_scalars('loss/all', {'train':valid_meter.value(),
+                                 'validation':loss_meter.value(),
+                                 },e)
         save(model,e)
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))

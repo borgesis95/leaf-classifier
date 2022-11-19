@@ -22,3 +22,4 @@ alexnet---accuracy:49.42528735632184---time----2505.92, alexnet_ep=30_feature_ex
 resnet---accuracy:85.79638752052546---time----2699.68, resnet_ep=30_feature_extraction=_False_da=False_lr=0.0001
 resnet---accuracy:89.81937602627258---time----4542.67, resnet_ep=50_feature_extraction=_False_da=False_lr=0.0001
 squeezenet---accuracy:82.92282430213464---time----4265.11, squeezenet_ep=50_feature_extraction=_False_da=False_lr=0.0001
+squeezenet---accuracy:60.238095238095234---time----2338.78, squeezenet_ep=25_feature_extraction=_True_da=True_lr=0.0005

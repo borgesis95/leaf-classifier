@@ -13,7 +13,7 @@ class CSVImageDataset(data.Dataset):
 
     def __getitem__(self, i):
         im_path, im_label = self.data.iloc[i]['image'], self.data.iloc[i].labels
-        im = Image.open(im_path).convert('RGB')
+        im = Image.open(im_path)
  
         if self.transform is not None:
             im = self.transform(im)
