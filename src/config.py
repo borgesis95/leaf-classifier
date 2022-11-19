@@ -24,7 +24,7 @@ NUM_WORKERS = 3
 ## -- Main configuration
 
 MODEL_NAME = "squeezenet"
-EPOCHS = 5
+EPOCHS = 25
 LOAD_CHECKPOINT = True
 LEARNING_RATE = 0.0005
 FEATURE_EXTR = False
@@ -32,8 +32,8 @@ DATA_AUGMENTATION = True
 
 ## -- Train configuration
 
-CHECKPOINT_DIR = "checkpoint/epochs=25_test_5"
-LOG_DIR = "logs/epochs=25_test_5"
+CHECKPOINT_DIR = "checkpoint/epochs="+str(EPOCHS)
+LOG_DIR = "logs/epochs="+str(EPOCHS)
 
 ## -- Gradio configuration
-GRADIO_LOAD_CHECKPOINT_PATH="checkpoint/epochs=25_test_4"
+GRADIO_LOAD_CHECKPOINT_PATH="checkpoint/epochs="+str(EPOCHS)

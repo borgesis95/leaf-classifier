@@ -110,7 +110,6 @@ def trainval_classifier(model,loadcheckpoint,train_loader,validation_loader,lr,e
 
                         writer.add_scalar('loss/train', loss_meter.value(),global_step=global_step)
                         writer.add_scalar('accuracy/train', acc_meter.value(),global_step=global_step)
-                        print("loss_Acc",valid_meter.value())
                         valid_meter.add(loss.item(),n)      
 
                 writer.add_scalar('loss/' + mode, loss_meter.value(), global_step=global_step)
