@@ -1,6 +1,7 @@
 from sys import path
 import cv2
 import os
+from src.config import VIDEO_PATH,FRAMES_PER_VIDEO,FRAMES_FOLDER,DISTINCT_TRAINTEST_SET,TRAINING_RATE,DISTINCT_TRAINTEST_SET,LABELS_DISTINCT_LIST,LABELS_ALL,TRAIN_FOLDER,TEST_FOLDER
 
 count = 0
 
@@ -27,21 +28,26 @@ def get_frame(path,imagePath,framesNumber,textFile,labelClass):
         count = count + 1
     video.release()
     return True
-
 if __name__ =="__main__":
 
     print("Start Frame extraction:")   
+
     class_dictionary = {
         "alloro" : 0,
         "edera": 1,
         "nespole": 2
     }
     source = ['alloro','edera','nespole']
-    videoPath = 'dataset/'
-    frames_per_video = 200
+    videoPath = VIDEO_PATH 
 
-    labels_train = open('./labels.train.txt','a')
-    labels_test = open('./labels.test.txt','a')
+    frames_per_video = FRAMES_PER_VIDEO
+
+    if(DISTINCT_TRAINTEST_SET == True):
+
+        labels_train = open('./'+ LABELS_DISTINCT_LIST[0],'a')
+        labels_test = open('./'+ LABELS_DISTINCT_LIST[1],'a')
+    else:
+        labels_all = open('./'+ LABELS_ALL,'a')
 
     numbers_of_video = 18
 
@@ -51,20 +57,23 @@ if __name__ =="__main__":
         count_tt = 0
         with os.scandir(path) as it:
 
-            training_percentage = 0.6
 
             for entry in it:
                 folder =""
-                if(count_tt/numbers_of_video > training_percentage):
-                    print("vai in test")
-                    folder = "test/"
-                    labels = labels_test
-                else :
-                    print("vai in train")
-                    folder = "train/"
-                    labels = labels_train
+                if(DISTINCT_TRAINTEST_SET == True):
+                    if(count_tt/numbers_of_video > TRAINING_RATE):
+                        print("vai in test")
+                        folder = TEST_FOLDER +'/'
+                        labels = labels_test
+                    else :
+                        print("vai in train")
+                        folder = TRAIN_FOLDER +'/'
+                        labels = labels_train
+                else: 
+                    labels = labels_all
+                
                 print(entry.name,entry.path)
-                get_frame(entry.path,'./frames/'+folder,frames_per_video,labels,class_dictionary[curr_folder])
+                get_frame(entry.path, FRAMES_FOLDER + folder,frames_per_video,labels,class_dictionary[curr_folder])
                 count_tt = count_tt + 1
             
 
