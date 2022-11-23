@@ -131,3 +131,7 @@ dmypy.json
 /Dataset/*
 /frames/*
 /logs/*
+/logs_13_11
+/checkpoint/*
+/checkpoint_13_11
+/external_dataset/*

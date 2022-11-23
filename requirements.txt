@@ -1,0 +1,6 @@
+numpy
+pytorch
+torchvision
+torch
+gradio
+torchvision
