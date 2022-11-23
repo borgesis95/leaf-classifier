@@ -1,4 +1,5 @@
-#Leaf-classifier
+# Leaf-classifier
+
 This is a university project for machine learning course.  Goal of this project is build a classifier able to understand if a leaf is an ivy,medlar or laurel leave leaf.
 
 ## Requirements
