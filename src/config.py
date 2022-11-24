@@ -46,7 +46,7 @@ NUM_WORKERS = 3
 ## -- Main configuration
 
 MODEL_NAME = "alexnet"
-EPOCHS = 10
+EPOCHS = 101
 LOAD_CHECKPOINT = True
 LEARNING_RATE = 0.0005
 FEATURE_EXTR = False
