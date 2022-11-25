@@ -3,9 +3,9 @@
 VIDEO_PATH = 'dataset/'
 
 #Tell how many frames user want to extract from each video
-FRAMES_PER_VIDEO = 200
+FRAMES_PER_VIDEO = 150
 #Describe where user want to save frame
-FRAMES_FOLDER = "./frames-2/"
+FRAMES_FOLDER = "./frames/all/"
 
 # If this feature is True frames for each video will be use for both train and test
 DISTINCT_TRAINTEST_SET = False
@@ -17,20 +17,20 @@ TEST_FOLDER = 'test'
 
 #This array will be used only if DISTINCT_TRAINTEST_SET is True otherwise will be considered LABELS_ALL value
 LABELS_DISTINCT_LIST = ['labels-2.train.txt','labels-2.test.txt']
-LABELS_ALL = 'labels-2.all.txt'
+LABELS_ALL = 'labels.all.txt'
 
 
 
 # -- Configuration parameters for csv's creation 
 
-LABELS_PATHS = ['labels.all-2.txt']
-LABELS_PATHS = ['./labels-2.train.txt','./labels-2.test.txt']
+LABELS_PATHS = ['labels.all.txt']
+# LABELS_PATHS = ['./labels-2.train.txt','./labels-2.test.txt']
 FRAMES_FOLDER_CSV = 'frames-2'
 
 ## Training,Validation and test file tell where to save CSV
-TRAINING_CSV_FILE = "csv/train-2.set.csv"
-VALIDATION_CSV_FILE = "csv/validation-2.set.csv"
-TEST_CSV_FILE="csv/testing-2.set.csv"
+TRAINING_CSV_FILE = "csv/train.all.csv"
+VALIDATION_CSV_FILE = "csv/validation.all.csv"
+TEST_CSV_FILE="csv/testing-2.all.csv"
 
 
 # -- Configuration parameters for DataLoader creation
@@ -45,11 +45,11 @@ NUM_WORKERS = 3
 
 ## -- Main configuration
 
-MODEL_NAME = "alexnet"
-EPOCHS = 101
+MODEL_NAME = "resnet"
+EPOCHS = 25
 LOAD_CHECKPOINT = True
-LEARNING_RATE = 0.0005
-FEATURE_EXTR = False
+LEARNING_RATE = 0.001
+FEATURE_EXTR = True
 DATA_AUGMENTATION = True
 
 ## -- Train configuration
