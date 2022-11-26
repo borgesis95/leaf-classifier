@@ -12,7 +12,7 @@ This is a university project for machine learning course.  Goal of this project 
 - torchvision
 
 Install running:
-``` pip3 -r requirements.txt```
+``` pip3 install -r requirements.txt```
 
 ## Datasets
 
