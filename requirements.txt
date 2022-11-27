@@ -1,6 +1,10 @@
 numpy
-pytorch
-torchvision
 torch
-gradio
+# gradio
 torchvision
+scikit-learn
+matplotlib
+tensorboard
+torchnet
+opencv-python
+pandas
