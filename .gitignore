@@ -130,4 +130,4 @@ dmypy.json
 
 /Dataset/*
 /frames/*
-/checkpoint/*
+/checkpoint/all
