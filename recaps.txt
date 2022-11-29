@@ -1,13 +1,15 @@
 resnet---accuracy:83.80952380952381---time----3011.64, resnet_ep=30_feature_extraction=_False_da=True_lr=0.0005 SI
-resnet---accuracy:85.89285714285714---time----16023.48, resnet_ep=50_feature_extraction=_True_da=True_lr=0.001 DA RIFARE
+resnet---accuracy:85.89285714285714---time----16023.48, resnet_ep=50_feature_extraction=_True_da=True_lr=0.001 SI
 alexnet---accuracy:61.48809523809524---time----2711.03, alexnet_ep=30_feature_extraction=_False_da=True_lr=0.0005 SI
-alexnet---accuracy:36.547619047619044---time----4766.14, alexnet_ep=50_feature_extraction=_True_da=True_lr=0.001 NO
+alexnet---accuracy:36.547619047619044---time----4766.14, alexnet_ep=50_feature_extraction=_True_da=True_lr=0.001 DA RIFARE
 squeezenet---accuracy:79.4047619047619---time----11864.09, squeezenet_ep=30_feature_extraction=_False_da=True_lr=0.0005 SI
 squeezenet---accuracy:82.5---time----9812.25, squeezenet_ep=50_feature_extraction=_True_da=True_lr=0.001 DA RIFARE
 --- All---
-resnet---accuracy:98.14814814814815---time----3354.42, resnet_ep=50_feature_extraction=_True_da=True_lr=0.001 DA RIFARE
-resnet---accuracy:98.70370370370371---time----3835.1, resnet_ep=50_feature_extraction=_False_da=True_lr=0.001 DA RIFARE
-squeezenet---accuracy:98.33333333333333---time----3382.12, squeezenet_ep=50_feature_extraction=_True_da=True_lr=0.001 DA RIFARE
-squeezenet---accuracy:98.20987654320987---time----3266.28, squeezenet_ep=50_feature_extraction=_True_da=True_lr=0.001 DA RIFARE
 alexnet---accuracy:95.37037037037037---time----3428.55, alexnet_ep=50_feature_extraction=_False_da=True_lr=0.001 OK
---- DA RIFARE ---
+alexnet---accuracy:40.06172839506173---time----3095.95, alexnet_ep=50_feature_extraction=_True_da=True_lr=0.01 OK
+squeezenet---accuracy:97.5925925925926---time----3574.46, squeezenet_ep=50_feature_extraction=_False_da=True_lr=0.001 OK
+resnet---accuracy:98.88888888888889---time----4018.57, resnet_ep=50_feature_extraction=_False_da=True_lr=0.001 OK
+resnet---accuracy:97.77777777777777---time----3484.97, resnet_ep=50_feature_extraction=_True_da=True_lr=0.001 OK
+squeezenet---accuracy:98.20987654320987---time----3118.16, squeezenet_ep=50_feature_extraction=_True_da=True_lr=0.001 OK
+--ALTRI
+alexnet---accuracy:34.70238095238095---time----4054.98, alexnet_ep=50_feature_extraction=_True_da=True_lr=0.001
