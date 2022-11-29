@@ -13,3 +13,6 @@ resnet---accuracy:97.77777777777777---time----3484.97, resnet_ep=50_feature_extr
 squeezenet---accuracy:98.20987654320987---time----3118.16, squeezenet_ep=50_feature_extraction=_True_da=True_lr=0.001 OK
 --ALTRI
 alexnet---accuracy:34.70238095238095---time----4054.98, alexnet_ep=50_feature_extraction=_True_da=True_lr=0.001
+
+
+python -m src.extractions.01_frames
