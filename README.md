@@ -55,13 +55,16 @@ Finally, for launch training phase run:
 
 ## Run Gradio
 
-If you want to run models . go to root folder and run:
+If you want to run models previously trained  go to root folder and run:
 
-```python -m src.gradio-gui``` you will able to open web GUI .You can upload your image and check out if classifier works
+```python -m src.gradio-gui```
+
+you will able to open web GUI built with [Gradio](https://gradio.app/docs/) .You can upload your image and check out if classifier works
 
 
  
- 
+ ![image](https://user-images.githubusercontent.com/13350129/204768705-4f150195-dc91-4766-8382-4e2a9e42f306.png)
+
  
 
  
