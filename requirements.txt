@@ -1,6 +1,6 @@
 numpy
 torch
-# gradio
+gradio
 torchvision
 scikit-learn
 matplotlib
